@@ -1,12 +1,9 @@
-﻿// FormsAndSQL1.cpp : main project file.
+﻿// Form.cpp : main project file.
 
 #include "stdafx.h"
 #include "Form.h"
 
-
 using namespace Forms;
-
-//System::Windows::Forms::Form ^ ojbForm1=gcnew Form1;
 
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)

@@ -1,5 +1,34 @@
+/*
+ * This is the main form. Here's a map of the code structure:
+ *	 #includes
+ *	 namespace Forms
+ *   {
+ *       using namespace System;
+ *       [...]
+ *	     class Form2 : public Form
+ *       {
+ *           // Constructor and destructor
+ *           Form2(void)
+ *           ~Form2()
+ *           // Properties for database handling
+ *           DbProviderFactory^ fac;
+ *           DbConnection^ conn;
+ *           DbCommand^ cmd;
+ *           // Forms component declarations. Don't touch! Use the designer window.
+ *           private: System::Windows::Forms::Button^  button1;
+ *           [...]
+ *   #pragma region Windows Form Designer generated code
+ *           // This is where GUI components are created. Don't touch!  Use the designer window.
+ *           [...]
+ *   #pragma endregion
+ *           // Event handlers. These functions are called when the form is used, for example
+ *           // when a button is clicked.
+ *           [...]
+ *       }; // End of class definition
+ *   } // End of Forms namespace
+ */
+
 #pragma once
-//	#using <System.Data.dll>
 	#using <System.Data.Entity.dll>
 	#include"Jobb.h"
 	#include"Anställd.h"	
@@ -24,28 +53,35 @@ namespace Forms{
 	public ref class Form2 : public System::Windows::Forms::Form
 	{
 	public:
+		// Default constructor
 		Form2(void)
 		{
 			InitializeComponent();
-			fac = DbProviderFactories::GetFactory("System.Data.SqlClient");
-			conn = fac->CreateConnection();
-			conn->ConnectionString = "Data Source=jth-stud.hj.se;Initial Catalog=DBmoab1313;Integrated Security=False;User ID=moab1313;Password=XXXXXX;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
-			conn->Open();
-			cmd = fac->CreateCommand();
-			cmd->Connection = conn;
+			
+			// Connect to database engine
+			//fac = DbProviderFactories::GetFactory("System.Data.SqlClient");
+			//conn = fac->CreateConnection();
+			//conn->ConnectionString = "Data Source=jth-stud.hj.se;Initial Catalog=DBmoab1313;Integrated Security=False;User ID=moab1313;Password=XXXXXX;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+			//conn->Open();
 
-		    vector<Anställd^>^ anställdvektor=Anställd::hämtaAlla(cmd);
-			vector<Anställd^>::iterator it=anställdvektor->begin();
-			listBox1->Items->Clear();
-			for(it;it!=anställdvektor->end(); it++)
-			{
-				comboBox1->Items->Add((**it).förnamn()+"  "+(**it).efternamn());
-			}
+			// Prepare DB command
+			//cmd = fac->CreateCommand();
+			//cmd->Connection = conn;
 
-
+			// Fill vector with Anställd objects using static method hämtaAlla() in class Anställd
+		    //vector<Anställd^>^ anställdvektor = Anställd::hämtaAlla(cmd);
+			
+			// Iterate through vector and add .förnamn and .efternamn to listBox1
+			//vector<Anställd^>::iterator it = anställdvektor->begin();
+			//listBox1->Items->Clear();
+			//for(it; it!=anställdvektor->end(); it++)
+			//{
+			//	comboBox1->Items->Add((**it).förnamn() + "  " + (**it).efternamn());
+			//}
 		}
 
 	protected:
+		// Destructor
 		~Form2()
 		{
 			if (components)
@@ -55,23 +91,22 @@ namespace Forms{
 
 			if (conn != nullptr) conn->Close();
 		}
-	private: 
+
+	private:
+		// For database connection and manipulation
 		DbProviderFactory^ fac;
 		DbConnection^ conn;
 		DbCommand^ cmd;
+
+		// Windows forms components declarations
 	private: System::Windows::Forms::Button^  button1;
-	protected: 
 	private: System::Windows::Forms::TextBox^  textBox1;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::ListBox^  listBox1;
-
-
 	private: System::Windows::Forms::TextBox^  textBox2;
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::ComboBox^  comboBox1;
-
-
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -185,41 +220,58 @@ namespace Forms{
 
 		}
 #pragma endregion
-	private: System::Void Form2_Load(System::Object^  sender, System::EventArgs^  e) {
-			 }
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) 
-	{
-	try{
 
+		/*
+		 * Windows forms event handlers
+		 */
 
-
-
-			vector<Anställd^>^ anställdvektor=Anställd::hämtaAlla(cmd);
-			Jobb::spara(cmd,gcnew String(textBox1->Text),Convert::ToInt32(textBox2->Text),anställdvektor[comboBox1->SelectedIndex]->id(),3);
-			vector<Jobb^>^ jobbvvektor=Jobb::hämtaAlla(cmd);
-			vector<Jobb^>::iterator it=jobbvvektor->begin();
-			listBox1->Items->Clear();
-			for(it;it!=jobbvvektor->end(); it++)
-			{
-				listBox1->Items->Add((**it).beskrivning()+"          "+Convert::ToString((**it).tidsåtgång())+"      "+Anställd::hämtaFörnamn(cmd,(**it).anställdId()));
-			}
-			
-
+	private: System::Void Form2_Load(System::Object^  sender, System::EventArgs^  e)
+		{
 		}
-    	catch(Exception^ e)
-       {
-          listBox1->Items->Add(e->Message);
-      }
-	}
 
-private: System::Void dataGridView1_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
-		 }
-private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
-		 }
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) 
-		 {
-			 Jobb::deleteAll(cmd);
-			 listBox1->Items->Clear();
-		 }
-	};
-}
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) 
+		{
+			//try
+			//{
+			//	// Get Anställd objects into vector using hämtaAlla().
+			//	// cmd was prepared in the constructor
+			//	vector<Anställd^>^ anställdvektor = Anställd::hämtaAlla(cmd);
+			//	
+			//	// Call Jobb::spara to save whats in textBox1
+			//	Jobb::spara(cmd, gcnew String(textBox1->Text), Convert::ToInt32(textBox2->Text), anställdvektor[comboBox1->SelectedIndex]->id(), 3);
+			//	
+			//	// Get Jobb objects into vector using Jobb::hämtaAlla
+			//	vector<Jobb^>^ jobbvvektor=Jobb::hämtaAlla(cmd);
+			//	
+			//	// Iterate through vector and add Jobb object contents to listBox1
+			//	vector<Jobb^>::iterator it=jobbvvektor->begin();
+			//	listBox1->Items->Clear();
+			//	for(it;it!=jobbvvektor->end(); it++)
+			//	{
+			//		listBox1->Items->Add((**it).beskrivning() + "          " + Convert::ToString((**it).tidsåtgång()) + "      " + Anställd::hämtaFörnamn(cmd, (**it).anställdId()));
+			//	}
+			//}
+			//catch(Exception^ e)
+		    //{
+			//	// Print exception message in listBox1 if there was an error
+			//	listBox1->Items->Add(e->Message);
+			//}
+		}
+
+	private: System::Void dataGridView1_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e)
+		{
+		}
+	
+	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+		}
+	
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) 
+		{
+			//// Call Jobb::deleteAll() and clear contents in listBox1
+			//Jobb::deleteAll(cmd);
+			//listBox1->Items->Clear();
+		}
+
+	}; // End of class Form2
+} // End of namespace Forms
