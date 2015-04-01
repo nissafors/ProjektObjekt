@@ -23,6 +23,14 @@ namespace ProjektObjekt {
 			//
 		}
 
+		// Getters
+		String^ getUsername() {
+			return usernameTextBox->Text;
+		}
+		String^ getPassword() {
+			return passwordTextBox->Text;
+		}
+
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -34,6 +42,7 @@ namespace ProjektObjekt {
 				delete components;
 			}
 		}
+
 	private: System::Windows::Forms::Label^  usernameLabel;
 	private: System::Windows::Forms::TextBox^  usernameTextBox;
 
@@ -125,6 +134,7 @@ namespace ProjektObjekt {
 			// 
 			// LoginForm
 			// 
+			this->AcceptButton = this->logInButton;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->CancelButton = this->cancelButton;

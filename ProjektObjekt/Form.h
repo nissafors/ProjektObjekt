@@ -31,12 +31,12 @@
 #pragma once
 
 #include "LoginForm.h"
+#include "User.h"
 
 //#using <System.Data.Entity.dll>
 //#include <cliext\vector>
 
 namespace ProjektObjekt{
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -58,7 +58,7 @@ namespace ProjektObjekt{
 		Form2(void)
 		{
 			InitializeComponent();
-			_loggedIn = false;
+			_currentUser = nullptr;
 		}
 
 	protected:
@@ -80,7 +80,7 @@ namespace ProjektObjekt{
 		DbCommand^ cmd;
 
 		// Our own class members
-		bool _loggedIn;
+		User^ _currentUser;
 
 		// Windows forms components declarations
 
@@ -135,6 +135,7 @@ namespace ProjektObjekt{
 			this->doStuffButton->TabIndex = 2;
 			this->doStuffButton->Text = L"Unavailable";
 			this->doStuffButton->UseVisualStyleBackColor = true;
+			this->doStuffButton->Click += gcnew System::EventHandler(this, &Form2::doStuffButton_Click);
 			// 
 			// exitButton
 			// 
@@ -169,23 +170,40 @@ namespace ProjektObjekt{
 	private:
 		System::Void logInOutButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			if (_loggedIn == false) {
-				Form^ loginForm = gcnew LoginForm;
-				if (loginForm->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			if (_currentUser == nullptr) {
+				// Show login dialog
+				LoginForm^ loginForm = gcnew LoginForm;
+				if (loginForm->ShowDialog(this) == System::Windows::Forms::DialogResult::OK)
 				{
-					// To be replaced:
-					doStuffButton->Enabled = true;
-					doStuffButton->Text = "Current user: Admin";
-					logInOutButton->Text = "Log out";
-					_loggedIn = true;
+					// Get a User based on dialog user input from login dialog
+					String^ username = loginForm->getUsername();
+					String^ password = loginForm->getPassword();
+					delete loginForm;
+
+					_currentUser = User::getUser(username, password);
+					if (_currentUser != nullptr)
+					{
+						String^ lblTxt = "Current user: " + username;
+						currentUserLabel->Text = lblTxt;
+						doStuffButton->Enabled = true;
+						logInOutButton->Text = "Log out";
+
+						if (_currentUser->getUserType() == _user_t::student)
+							doStuffButton->Text = "Show tests";
+						else
+							doStuffButton->Text = "Edit schedule";
+					}
+					else
+					{
+						// Login failed. Make sure we are logged out.
+						logout();
+					}
 				}
 			}
 			else
 			{
-				doStuffButton->Enabled = false;
-				doStuffButton->Text = "Unavailable";
-				logInOutButton->Text = "Log in";
-				_loggedIn = false;
+				// Logout requested
+				logout();
 			}
 		}
 
@@ -195,5 +213,25 @@ namespace ProjektObjekt{
 			Application::Exit();
 		}
 
+		System::Void doStuffButton_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+			if (_currentUser != nullptr && _currentUser->getUserType() == _user_t::student)
+			{
+				// User is a student: Call show tests form
+			}
+			else if (_currentUser != nullptr && _currentUser->getUserType() == _user_t::teacher)
+			{
+				// User is a teacher: Call edit schedule form
+			}
+		}
+
+		void logout()
+		{
+			_currentUser = nullptr;
+			currentUserLabel->Text = "Current user: none";
+			doStuffButton->Enabled = false;
+			doStuffButton->Text = "Unavailable";
+			logInOutButton->Text = "Log in";
+		}
 	}; // End of class Form2
 } // namespace endbracket
