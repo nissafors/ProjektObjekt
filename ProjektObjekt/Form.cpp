@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "Form.h"
 
-using namespace Forms;
+using namespace ProjektObjekt;
 
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
