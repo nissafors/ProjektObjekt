@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="OriginalForm.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -100,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Anställd.h" />
+    <ClInclude Include="dbHandler.h" />
     <ClInclude Include="Form.h">
       <FileType>CppForm</FileType>
     </ClInclude>

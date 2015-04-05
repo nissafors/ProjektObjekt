@@ -33,10 +33,7 @@
 #include "LoginForm.h"
 #include "User.h"
 
-//#using <System.Data.Entity.dll>
-//#include <cliext\vector>
-
-namespace ProjektObjekt{
+namespace ProjektObjekt {
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -59,6 +56,16 @@ namespace ProjektObjekt{
 		{
 			InitializeComponent();
 			_currentUser = nullptr;
+
+			// Connect to database engine
+			//fac = DbProviderFactories::GetFactory("System.Data.SqlClient");
+			//conn = fac->CreateConnection();
+			//conn->ConnectionString = "Data Source=MACBOOK-PRO;Initial Catalog=DBanan14hj;Integrated Security=False;User ID=anan14hj;Password=Jwcg998;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+			//conn->Open();
+			
+			// Prepare DB command
+			//cmd = fac->CreateCommand();
+			//cmd->Connection = conn;
 		}
 
 	protected:
