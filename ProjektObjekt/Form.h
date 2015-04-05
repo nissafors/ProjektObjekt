@@ -1,31 +1,5 @@
 /*
- * This is the main form. Here's a map of the code structure:
- *	 #includes
- *	 namespace Forms
- *   {
- *       using namespace System;
- *       [...]
- *	     class Form2 : public Form
- *       {
- *           // Constructor and destructor
- *           Form2(void)
- *           ~Form2()
- *           // Properties for database handling
- *           DbProviderFactory^ fac;
- *           DbConnection^ conn;
- *           DbCommand^ cmd;
- *           // Forms component declarations. Don't touch! Use the designer window.
- *           private: System::Windows::Forms::Button^  button1;
- *           [...]
- *   #pragma region Windows Form Designer generated code
- *           // This is where GUI components are created. Don't touch!  Use the designer window.
- *           [...]
- *   #pragma endregion
- *           // Event handlers. These functions are called when the form is used, for example
- *           // when a button is clicked.
- *           [...]
- *       }; // End of class definition
- *   } // End of Forms namespace
+ * This is the main window.
  */
 
 #pragma once
@@ -33,16 +7,9 @@
 #include "LoginForm.h"
 #include "User.h"
 
+using namespace System::Windows::Forms;
+
 namespace ProjektObjekt {
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
-	using namespace System::Data::Common;
-	using namespace System::Configuration;
-	using namespace System::Data::SqlClient;
 
 	/// <summary>
 	/// This is the main form. From here a user may log in to the system. If the user is an
@@ -56,16 +23,6 @@ namespace ProjektObjekt {
 		{
 			InitializeComponent();
 			_currentUser = nullptr;
-
-			// Connect to database engine
-			//fac = DbProviderFactories::GetFactory("System.Data.SqlClient");
-			//conn = fac->CreateConnection();
-			//conn->ConnectionString = "Data Source=MACBOOK-PRO;Initial Catalog=DBanan14hj;Integrated Security=False;User ID=anan14hj;Password=Jwcg998;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
-			//conn->Open();
-			
-			// Prepare DB command
-			//cmd = fac->CreateCommand();
-			//cmd->Connection = conn;
 		}
 
 	protected:
@@ -76,21 +33,13 @@ namespace ProjektObjekt {
 			{
 				delete components;
 			}
-
-			if (conn != nullptr) conn->Close();
 		}
 
 	private:
-		// For database connection and manipulation
-		DbProviderFactory^ fac;
-		DbConnection^ conn;
-		DbCommand^ cmd;
-
 		// Our own class members
 		User^ _currentUser;
 
 		// Windows forms components declarations
-
 	private: System::Windows::Forms::Label^  currentUserLabel;
 	private: System::Windows::Forms::Button^  logInOutButton;
 	private: System::Windows::Forms::Button^  doStuffButton;
@@ -163,6 +112,7 @@ namespace ProjektObjekt {
 			this->Controls->Add(this->doStuffButton);
 			this->Controls->Add(this->logInOutButton);
 			this->Controls->Add(this->currentUserLabel);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"Form2";
 			this->Text = L"Fake University";
 			this->ResumeLayout(false);
@@ -186,15 +136,15 @@ namespace ProjektObjekt {
 					String^ username = loginForm->getUsername();
 					String^ password = loginForm->getPassword();
 					delete loginForm;
-
+				
 					_currentUser = User::getUser(username, password);
 					if (_currentUser != nullptr)
 					{
-						String^ lblTxt = "Current user: " + username;
+						String^ lblTxt = "Current user: " + _currentUser->getName() + " [" + username + "]";
 						currentUserLabel->Text = lblTxt;
 						doStuffButton->Enabled = true;
 						logInOutButton->Text = "Log out";
-
+				
 						if (_currentUser->getUserType() == _user_t::student)
 							doStuffButton->Text = "Show tests";
 						else

@@ -5,6 +5,8 @@
 
 User::User()
 {
+	_username = "";
+	_name = "";
 }
 
 User^ User::getUser(String^ username, String^ password)
