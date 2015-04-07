@@ -6,6 +6,7 @@
 
 #include "LoginForm.h"
 #include "EditScheduleForm.h"
+#include "ShowTestsForm.h"
 #include "User.h"
 
 using namespace System::Windows::Forms;
@@ -176,6 +177,8 @@ namespace ProjektObjekt {
 			if (_currentUser != nullptr && _currentUser->getUserType() == _user_t::student)
 			{
 				// User is a student: Call show tests form
+				ShowTestsForm^ stf = gcnew ShowTestsForm(dynamic_cast<Student^>(_currentUser));
+				stf->ShowDialog(this);
 			}
 			else if (_currentUser != nullptr && _currentUser->getUserType() == _user_t::teacher)
 			{

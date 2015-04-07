@@ -91,6 +91,7 @@
     <ClCompile Include="EditScheduleForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="OriginalForm.cpp" />
+    <ClCompile Include="ShowTestsForm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -103,7 +104,9 @@
   <ItemGroup>
     <ClInclude Include="Anställd.h" />
     <ClInclude Include="dbHandler.h" />
-    <ClInclude Include="EditScheduleForm.h" />
+    <ClInclude Include="EditScheduleForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Form.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -115,6 +118,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="ShowTestsForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="Teacher.h" />
@@ -130,12 +136,14 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EditScheduleForm.resx" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowTestsForm.resx">
+      <DependentUpon>ShowTestsForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
