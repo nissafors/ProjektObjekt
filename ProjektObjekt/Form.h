@@ -5,6 +5,7 @@
 #pragma once
 
 #include "LoginForm.h"
+#include "EditScheduleForm.h"
 #include "User.h"
 
 using namespace System::Windows::Forms;
@@ -179,6 +180,8 @@ namespace ProjektObjekt {
 			else if (_currentUser != nullptr && _currentUser->getUserType() == _user_t::teacher)
 			{
 				// User is a teacher: Call edit schedule form
+				EditScheduleForm^ esf = gcnew EditScheduleForm;
+				esf->ShowDialog(this);
 			}
 		}
 
