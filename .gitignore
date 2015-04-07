@@ -1,0 +1,7 @@
+Debug
+*.opensdf
+*.sdf
+*.suo
+ProjektObjekt/Debug
+ProjektObjekt/*.aps
+ipch/
