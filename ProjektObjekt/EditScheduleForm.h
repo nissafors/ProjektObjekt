@@ -35,6 +35,8 @@ namespace ProjektObjekt {
 			}
 		}
 	private: System::Windows::Forms::Button^  DoneButton;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::ComboBox^  comboBox1;
 	protected:
 
 
@@ -55,32 +57,61 @@ namespace ProjektObjekt {
 		void InitializeComponent(void)
 		{
 			this->DoneButton = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->SuspendLayout();
 			// 
 			// DoneButton
 			// 
 			this->DoneButton->DialogResult = System::Windows::Forms::DialogResult::OK;
-			this->DoneButton->Location = System::Drawing::Point(668, 358);
+			this->DoneButton->Location = System::Drawing::Point(1002, 551);
+			this->DoneButton->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->DoneButton->Name = L"DoneButton";
-			this->DoneButton->Size = System::Drawing::Size(75, 23);
+			this->DoneButton->Size = System::Drawing::Size(112, 35);
 			this->DoneButton->TabIndex = 0;
 			this->DoneButton->Text = L"Done";
 			this->DoneButton->UseVisualStyleBackColor = true;
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(79, 54);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(108, 20);
+			this->label1->TabIndex = 1;
+			this->label1->Text = L"Course to edit";
+			// 
+			// comboBox1
+			// 
+			this->comboBox1->FormattingEnabled = true;
+			this->comboBox1->Location = System::Drawing::Point(83, 92);
+			this->comboBox1->Name = L"comboBox1";
+			this->comboBox1->Size = System::Drawing::Size(273, 28);
+			this->comboBox1->TabIndex = 2;
+			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &EditScheduleForm::comboBox1_SelectedIndexChanged);
+			// 
 			// EditScheduleForm
 			// 
 			this->AcceptButton = this->DoneButton;
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(755, 393);
+			this->ClientSize = System::Drawing::Size(1132, 605);
+			this->Controls->Add(this->comboBox1);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->DoneButton);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"EditScheduleForm";
 			this->Text = L"EditScheduleForm";
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
+	private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) 
+	{
+
+	}
 	};
 }
