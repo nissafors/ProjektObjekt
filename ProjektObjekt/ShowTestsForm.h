@@ -1,6 +1,8 @@
 #pragma once
 #include "Student.h"
 #include "dbHandler.h"
+#include "RunTestForm.h"
+#include <cliext/vector>
 
 namespace ProjektObjekt {
 
@@ -10,6 +12,7 @@ namespace ProjektObjekt {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace cliext;
 
 	/// <summary>
 	/// Summary for ShowTestsForm
@@ -17,7 +20,7 @@ namespace ProjektObjekt {
 	public ref class ShowTestsForm : public System::Windows::Forms::Form
 	{
 	public:
-		ShowTestsForm(Student^ student)
+		ShowTestsForm(Student^ student) : _student(student)
 		{
 			InitializeComponent();
 
@@ -26,12 +29,18 @@ namespace ProjektObjekt {
 			DbCommand^ cmd = dbh.getCommand();
 			cmd->CommandText = "SELECT ExaminationsMoment.exKod, Kurs.namn FROM ExaminationsMoment, StudentLäserKurs, Kurs WHERE StudentLäserKurs.personNr = @personNr AND StudentLäserKurs.kursKod = ExaminationsMoment.kursKod AND ExaminationsMoment.typ = 'tenta' AND Kurs.kursKod = StudentLäserKurs.kursKod";
 			cmd->Parameters->Add(gcnew SqlParameter("@personNr", SqlDbType::BigInt));
-			cmd->Parameters["@personNr"]->Value = student->getSocSecNr();
+			cmd->Parameters["@personNr"]->Value = _student->getSocSecNr();
 			DbDataReader^ reader = cmd->ExecuteReader();
-			while (reader->Read())
+			for (int i = 0; reader->Read(); i++)
 			{
-				String^ item = "Ex.nr: " + reader->GetInt32(0) + ", Kurs: " + reader->GetString(1);
+				_exCode->push_back(reader->GetInt32(0));
+				String^ item = "Examination " + _exCode->at(i) + " in " + reader->GetString(1);
 				selectTestComboBox->Items->Add(item);
+			}
+			if (selectTestComboBox->Items->Count > 0)
+			{
+				selectTestComboBox->SelectedIndex = 0;
+				runTestButton->Enabled = true;
 			}
 		}
 
@@ -46,10 +55,18 @@ namespace ProjektObjekt {
 				delete components;
 			}
 		}
+
+		// Our members
+	private:
+		vector<int>^ _exCode = gcnew vector<int>();
+		Student^ _student;
+
+		// Winforms members
 	private: System::Windows::Forms::Button^  runTestButton;
+	private: System::Windows::Forms::Button^  closeButton;
 	protected:
 
-	private: System::Windows::Forms::Button^  cancelButton;
+
 	private: System::Windows::Forms::ComboBox^  selectTestComboBox;
 	private: System::Windows::Forms::Label^  selectTestLabel;
 	protected:
@@ -69,31 +86,34 @@ namespace ProjektObjekt {
 		void InitializeComponent(void)
 		{
 			this->runTestButton = (gcnew System::Windows::Forms::Button());
-			this->cancelButton = (gcnew System::Windows::Forms::Button());
+			this->closeButton = (gcnew System::Windows::Forms::Button());
 			this->selectTestComboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->selectTestLabel = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// runTestButton
 			// 
+			this->runTestButton->AccessibleRole = System::Windows::Forms::AccessibleRole::TitleBar;
 			this->runTestButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->runTestButton->Enabled = false;
 			this->runTestButton->Location = System::Drawing::Point(212, 65);
 			this->runTestButton->Name = L"runTestButton";
 			this->runTestButton->Size = System::Drawing::Size(75, 23);
 			this->runTestButton->TabIndex = 0;
 			this->runTestButton->Text = L"Run test";
 			this->runTestButton->UseVisualStyleBackColor = true;
+			this->runTestButton->Click += gcnew System::EventHandler(this, &ShowTestsForm::runTestButton_Click);
 			// 
-			// cancelButton
+			// closeButton
 			// 
-			this->cancelButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->cancelButton->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->cancelButton->Location = System::Drawing::Point(131, 65);
-			this->cancelButton->Name = L"cancelButton";
-			this->cancelButton->Size = System::Drawing::Size(75, 23);
-			this->cancelButton->TabIndex = 1;
-			this->cancelButton->Text = L"Cancel";
-			this->cancelButton->UseVisualStyleBackColor = true;
+			this->closeButton->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->closeButton->DialogResult = System::Windows::Forms::DialogResult::OK;
+			this->closeButton->Location = System::Drawing::Point(131, 65);
+			this->closeButton->Name = L"closeButton";
+			this->closeButton->Size = System::Drawing::Size(75, 23);
+			this->closeButton->TabIndex = 1;
+			this->closeButton->Text = L"Close";
+			this->closeButton->UseVisualStyleBackColor = true;
 			// 
 			// selectTestComboBox
 			// 
@@ -117,11 +137,11 @@ namespace ProjektObjekt {
 			this->AcceptButton = this->runTestButton;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->CancelButton = this->cancelButton;
+			this->CancelButton = this->closeButton;
 			this->ClientSize = System::Drawing::Size(299, 100);
 			this->Controls->Add(this->selectTestLabel);
 			this->Controls->Add(this->selectTestComboBox);
-			this->Controls->Add(this->cancelButton);
+			this->Controls->Add(this->closeButton);
 			this->Controls->Add(this->runTestButton);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->Name = L"ShowTestsForm";
@@ -131,5 +151,11 @@ namespace ProjektObjekt {
 
 		}
 #pragma endregion
+	private:
+		System::Void runTestButton_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+			RunTestForm^ rtf = gcnew RunTestForm(_exCode->at(selectTestComboBox->SelectedIndex), _student);
+			rtf->ShowDialog(this);
+		}
 	};
 }

@@ -91,6 +91,7 @@
     <ClCompile Include="EditScheduleForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="OriginalForm.cpp" />
+    <ClCompile Include="RunTestForm.cpp" />
     <ClCompile Include="ShowTestsForm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -99,6 +100,7 @@
     <ClCompile Include="Form.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Teacher.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,12 +120,16 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RunTestForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="ShowTestsForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="Teacher.h" />
+    <ClInclude Include="Test.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunTestForm.resx">
+      <DependentUpon>RunTestForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShowTestsForm.resx">
       <DependentUpon>ShowTestsForm.h</DependentUpon>
