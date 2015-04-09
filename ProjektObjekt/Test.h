@@ -1,13 +1,21 @@
 #pragma once
 #include <cliext/vector>
-#include "Page.h"
+#include "InfoPage.h"
+#include "WritePage.h"
+#include "MultipleChoicePage.h"
+using namespace cliext;
 
 ref class Test
 {
 public:
 	Test(int examinationCode);
-	//Page^ getPage(int pageNumber);
+	Page^ getFirstPage();
+	Page^ getNextPage(int &pageIndex);
+	Page^ getPreviousPage(int &pageIndex);
+	int getNumberOfPages();
 private:
-	int _examinationCode;
-	//cliext::vector<Page^>^ _pages;
+	int _examinationCode = 0;
+	int _currentPageIndex = 0;
+	int _numberOfPages = 0;
+	vector<Page^>^ _pages = gcnew vector<Page^>;
 };

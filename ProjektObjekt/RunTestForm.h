@@ -1,5 +1,9 @@
 #pragma once
 #include "Student.h"
+#include "Test.h"
+#include "InfoPage.h"
+#include "WritePage.h"
+#include "MultipleChoicePage.h"
 
 namespace ProjektObjekt {
 
@@ -20,9 +24,9 @@ namespace ProjektObjekt {
 			: _examinationCode(examinationCode), _student(student)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			_test = gcnew Test(_examinationCode);
+			_currentPage = _test->getFirstPage();
+			_refreshPage(true, false);
 		}
 
 	protected:
@@ -41,6 +45,8 @@ namespace ProjektObjekt {
 	private:
 		int _examinationCode;
 		Student^ _student;
+		Test^ _test;
+		Page^ _currentPage;
 
 		// Winforms members
 	private: System::Windows::Forms::Label^  pageNumberLabel;
@@ -154,16 +160,86 @@ namespace ProjektObjekt {
 		}
 #pragma endregion
 
-		// Event handlers
 	private:
+		// Event handlers
+
 		System::Void previousButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			// Load previous page.
+			// Load previous page
+			int pageIndex;
+			bool isFirstPage = false;
+			bool isLastPage = false;
+			_currentPage = _test->getPreviousPage(pageIndex);
+			if (pageIndex == 0)
+				isFirstPage = true;
+			if (_test->getNumberOfPages() < 2)
+				isLastPage = true;
+			_refreshPage(isFirstPage, isLastPage);
 		}
 
 		System::Void nextButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
 			// Load next page or submit test (if last page).
+			int pageIndex;
+			bool isFirstPage = false;
+			bool isLastPage = false;
+			_currentPage = _test->getNextPage(pageIndex);
+			if (pageIndex == 0)
+				isFirstPage = true;
+			if (pageIndex + 1 == _test->getNumberOfPages())
+				isLastPage = true;
+			_refreshPage(isFirstPage, isLastPage);
+		}
+
+		// Private functions
+		void _refreshPage(bool isFirstPage, bool isLastPage)
+		{
+			// Enable and disable buttons depending on if current page is first or last
+			if (isFirstPage)
+				previousButton->Enabled = false;
+			else
+				previousButton->Enabled = true;
+			if (isLastPage)
+				nextButton->Text = "Submit";
+			else
+				nextButton->Text = "Next";
+
+			// Update form
+			String^ labelText = "Page: " + this->_currentPage->getPageNumber();
+			pageNumberLabel->Text = labelText;
+			textLabel->Text = _currentPage->getText();
+			
+			if (_currentPage->getPageType() == page_t::info)
+			{
+				answersCheckedListBox->Visible = false;
+				answerRichTextBox->Visible = false;
+			}
+			else if (_currentPage->getPageType() == page_t::write)
+			{
+				answersCheckedListBox->Visible = false;
+				answerRichTextBox->Visible = true;
+				answerRichTextBox->Location = Point(12, 109);
+				answerRichTextBox->Size = System::Drawing::Size(614, 235);
+			}
+			else if (_currentPage->getPageType() == page_t::multipleChoice)
+			{
+				answerRichTextBox->Visible = false;
+				answersCheckedListBox->Visible = true;
+				answersCheckedListBox->Location = Point(12, 109);
+				answersCheckedListBox->Size = System::Drawing::Size(614, 235);
+
+				// If this is the first time loading the page, add options to checkedListBox
+				if (answersCheckedListBox->Items->Count == 0)
+				{
+					MultipleChoicePage^ thisPage = dynamic_cast<MultipleChoicePage^>(_currentPage);
+					vector<String^>^ options = thisPage->getOptions();
+					vector<String^>::iterator iter = options->begin();
+					for (; iter != options->end(); ++iter)
+					{
+						answersCheckedListBox->Items->Add(*iter, CheckState::Unchecked);
+					}
+				}
+			}
 		}
 	};
 }

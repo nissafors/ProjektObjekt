@@ -5,8 +5,8 @@ MultipleChoicePage::MultipleChoicePage(String^ text, int pageNumber, int examina
 	: Page(text, pageNumber)
 {
 	_pageType = page_t::multipleChoice;
-	// TODO: Load _options from db
-	_options = gcnew cliext::vector<String^>();
+	
+	// Load _options from db
 	dbHandler dbh;
 	DbCommand^ cmd = dbh.getCommand();
 	cmd->CommandText = "SELECT alternativText FROM Alternativ WHERE exKod = @exCode AND sidNr = @page ORDER BY alternativNr";
@@ -21,7 +21,7 @@ MultipleChoicePage::MultipleChoicePage(String^ text, int pageNumber, int examina
 	}
 }
 
-cliext::vector<String^>^ MultipleChoicePage::getOptions()
+vector<String^>^ MultipleChoicePage::getOptions()
 {
 	return _options;
 }
