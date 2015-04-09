@@ -2,7 +2,6 @@ Debug
 *.opensdf
 *.sdf
 *.suo
-*.cd
 ProjektObjekt/Debug
 ProjektObjekt/*.aps
 ipch/
