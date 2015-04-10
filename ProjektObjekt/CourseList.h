@@ -12,14 +12,14 @@ ref class CourseList
 public:
 	CourseList(String^ name, int courseId, int chiefId, int chiefExtra, DateTime startDate, DateTime endDate);//, int nmbrOfStud);
 	String^ name();
-	String^ courseId();
+	int courseId();
 	String^ chiefId();
 	String^ chiefExtra();
 	String^ startDate();
 	String^ endDate();
 	String^ nmbrOfStud();
 	static vector<CourseList^>^ getAllCourses(DbCommand^ cmd);
-
+	//static vector<CourseList^>^getSelectedCourses(DbCommand^ cmd);
 private:
 	String^ _name;
 	int _courseId, _chiefId, _chiefExtra, _nmbrOfStud;
