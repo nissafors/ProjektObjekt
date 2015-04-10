@@ -165,6 +165,9 @@ namespace ProjektObjekt {
 
 		System::Void previousButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
+			// Save answers on current page
+			savePageState();
+
 			// Load previous page
 			int pageIndex;
 			bool isFirstPage = false;
@@ -179,22 +182,40 @@ namespace ProjektObjekt {
 
 		System::Void nextButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
+			// Save answers on current page
+			savePageState();
+
 			// Load next page or submit test (if last page).
-			int pageIndex;
-			bool isFirstPage = false;
-			bool isLastPage = false;
-			_currentPage = _test->getNextPage(pageIndex);
-			if (pageIndex == 0)
-				isFirstPage = true;
-			if (pageIndex + 1 == _test->getNumberOfPages())
-				isLastPage = true;
-			_refreshPage(isFirstPage, isLastPage);
+			String^ buttonText = nextButton->Text;
+			if (buttonText->StartsWith("Next"))
+			{
+				// Next button was clicked. View next page.
+				int pageIndex;
+				bool isFirstPage = false;
+				bool isLastPage = false;
+				_currentPage = _test->getNextPage(pageIndex);
+				if (pageIndex == 0)
+					isFirstPage = true;
+				if (pageIndex + 1 == _test->getNumberOfPages())
+					isLastPage = true;
+				_refreshPage(isFirstPage, isLastPage);
+			}
+			else
+			{
+				// Submit button was clicked. Save answers to db.
+				// db = TentaSvar
+				//dbHandler dbh;
+				//DbCommand^ cmd = dbh.getCommand();
+
+			}
 		}
 
 		// Private functions
+
+		// Display _currentPage
 		void _refreshPage(bool isFirstPage, bool isLastPage)
 		{
-			// Enable and disable buttons depending on if current page is first or last
+			// Adjust button fnctions to _currentPage demands
 			if (isFirstPage)
 				previousButton->Enabled = false;
 			else
@@ -211,34 +232,66 @@ namespace ProjektObjekt {
 			
 			if (_currentPage->getPageType() == page_t::info)
 			{
+				// Hide answer boxes
 				answersCheckedListBox->Visible = false;
 				answerRichTextBox->Visible = false;
 			}
 			else if (_currentPage->getPageType() == page_t::write)
 			{
+				// Set visability and size of answer textBox
 				answersCheckedListBox->Visible = false;
 				answerRichTextBox->Visible = true;
 				answerRichTextBox->Location = Point(12, 109);
 				answerRichTextBox->Size = System::Drawing::Size(614, 235);
+				answerRichTextBox->Text = "";
+
+				// Show previously given answer, if any
+				WritePage^ thisPage = dynamic_cast<WritePage^>(_currentPage);
+				answerRichTextBox->Text = thisPage->getAnswer();
 			}
 			else if (_currentPage->getPageType() == page_t::multipleChoice)
 			{
+				// Set visability and size of answer checkedListBox
 				answerRichTextBox->Visible = false;
 				answersCheckedListBox->Visible = true;
 				answersCheckedListBox->Location = Point(12, 109);
 				answersCheckedListBox->Size = System::Drawing::Size(614, 235);
+				answersCheckedListBox->Items->Clear();
 
-				// If this is the first time loading the page, add options to checkedListBox
-				if (answersCheckedListBox->Items->Count == 0)
+				// Show options
+				MultipleChoicePage^ thisPage = dynamic_cast<MultipleChoicePage^>(_currentPage);
+				vector<String^>^ options = thisPage->getOptions();
+				vector<int>^ answer = thisPage->getAnswer();
+				int index = 0;
+				for each (String^ o in options)
 				{
-					MultipleChoicePage^ thisPage = dynamic_cast<MultipleChoicePage^>(_currentPage);
-					vector<String^>^ options = thisPage->getOptions();
-					vector<String^>::iterator iter = options->begin();
-					for (; iter != options->end(); ++iter)
-					{
-						answersCheckedListBox->Items->Add(*iter, CheckState::Unchecked);
-					}
+					CheckState state = CheckState::Unchecked;
+					// Is this answer checked?
+					for each (int a in answer)
+						if (a == index++)
+							state = CheckState::Checked;
+					answersCheckedListBox->Items->Add(o, state);
 				}
+			}
+		}
+
+		// Save answer on current page to Page->_answer
+		void savePageState()
+		{
+			if (_currentPage->getPageType() == page_t::multipleChoice)
+			{
+				MultipleChoicePage^ thisPage = dynamic_cast<MultipleChoicePage^>(_currentPage);
+				vector<int>^ answer = gcnew vector<int>();
+				for each (int checkedIndex in answersCheckedListBox->CheckedIndices)
+				{
+					answer->push_back(checkedIndex);
+				}
+				thisPage->setAnswer(answer);
+			}
+			else if (_currentPage->getPageType() == page_t::write)
+			{
+				WritePage^ thisPage = dynamic_cast<WritePage^>(_currentPage);
+				thisPage->setAnswer(answerRichTextBox->Text);
 			}
 		}
 	};

@@ -8,10 +8,10 @@ ref class MultipleChoicePage : public Page
 public:
 	MultipleChoicePage(String^ text, int pageNumber, int examinationCode);
 	vector<String^>^ getOptions();
-	int getAnswer();
-	void setAnswer(int answer);
+	vector<int>^ getAnswer();
+	void setAnswer(vector<int>^ answer);
 private:
-	int _answer;
+	vector<int>^ _answer = gcnew cliext::vector<int>();
 	vector<String^>^ _options = gcnew cliext::vector<String^>();
 };
 

@@ -26,12 +26,12 @@ vector<String^>^ MultipleChoicePage::getOptions()
 	return _options;
 }
 
-int MultipleChoicePage::getAnswer()
+vector<int>^ MultipleChoicePage::getAnswer()
 {
 	return _answer;
 }
 
-void MultipleChoicePage::setAnswer(int answer)
+void MultipleChoicePage::setAnswer(vector<int>^ answer)
 {
 	_answer = answer;
 }
