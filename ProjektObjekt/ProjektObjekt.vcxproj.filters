@@ -60,6 +60,9 @@
     <ClCompile Include="CourseList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BookingForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -110,6 +113,9 @@
     <ClInclude Include="CourseList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BookingForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -132,6 +138,9 @@
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="RunTestForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditScheduleForm.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

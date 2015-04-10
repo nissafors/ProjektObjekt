@@ -4,6 +4,7 @@
 #include "CourseList.h"
 #include "dbHandler.h"
 #include <string>
+#include "BookingForm.h"
 
 using namespace std;
 
@@ -25,11 +26,10 @@ namespace ProjektObjekt {
 		EditScheduleForm(void)
 		{
 			InitializeComponent();
-			// Get db command
-			
-			
-			
+			updateCourseList();
+			// Get db command			
 		}
+	
 
 	protected:
 		/// <summary>
@@ -62,6 +62,8 @@ namespace ProjektObjekt {
 
 	private:
 		vector<CourseList^>^ _courseListVector;
+		vector<CourseList^>^ _selectedCourse;
+		int _courseIdSelected;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -189,12 +191,20 @@ namespace ProjektObjekt {
 
 		}
 #pragma endregion
-
+		
+	public: System::Int32 getCourseIdSelected()
+	{
+				return _courseIdSelected;
+	}
 	private: System::Void btnBook_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
 			if (lstCourseList->SelectedIndices->Count > 0)
 			{
-				int courseid = _courseListVector[lstCourseList->SelectedIndices[0]]->courseId();
+				int courseIdSelected = _courseListVector[lstCourseList->SelectedIndices[0]]->courseId();
+				
+				//setCourseIdSelected(courseIdSelected);
+				BookingForm^ bf = gcnew BookingForm(courseIdSelected);
+				bf->ShowDialog(this);
 				//ListViewItem^ courseSelected = gcnew ListViewItem();
 				//courseSelected = lstCourseList->;
 				//courseSelected->SubItems->Add(lstCourseList->SelectedItems->ToString());
@@ -213,8 +223,9 @@ namespace ProjektObjekt {
 				//int i = Convert::ToInt32(lstCourseList->SelectedItems[0]->ToString());
 				
 				//i = stoi(_courseid);
+
 				//	MessageBox::Show(courseSelected);
-			//ListViewItem^ courseSelected =  gcnew ListViewItem();
+				//ListViewItem^ courseSelected =  gcnew ListViewItem();
 			}
 			else
 			{
@@ -222,40 +233,42 @@ namespace ProjektObjekt {
 			}
 
 	}
-private: System::Void txtCourseId_TextChanged(System::Object^  sender, System::EventArgs^  e) 
-	{
-			int _courseId;
-			_courseId = Convert::ToInt32(txtCourseId->Text);
-			dbHandler dbh;
-			DbCommand^ cmd = dbh.getCommand();
+	private: System::Void txtCourseId_TextChanged(System::Object^  sender, System::EventArgs^  e) 
+			{
+				//int _courseId;
+				//_courseId = Convert::ToInt32(txtCourseId->Text);
+				//dbHandler dbh;
+				//DbCommand^ cmd = dbh.getCommand();
 
-			vector<CourseList^>^ _selectedCourse;
-			//_selectedCourse = CourseList::getSelectedCourses(cmd);
+		
+				//_selectedCourse = CourseList::getSelectedCourses(cmd);
 
-	}
-		 System::Void updateCourseList()
-		 {
-			 dbHandler dbh;
-			 DbCommand^ cmd = dbh.getCommand();
+			}
+			System::Void setCourseIdSelected(int courseIdSelected)
+			{
+				_courseIdSelected = courseIdSelected;
+			}
+			
+			System::Void updateCourseList()
+			{
+				dbHandler dbh;
+				DbCommand^ cmd = dbh.getCommand();
+			 			 
+				_courseListVector = CourseList::getAllCourses(cmd);
+				lstCourseList->Items->Clear();
 
-			 
-			 _courseListVector = CourseList::getAllCourses(cmd);
-
-			 lstCourseList->Items->Clear();
-
-			 // Iterera igenom hela schemat och skriv ut den
-			 vector<CourseList^>::iterator it = _courseListVector->begin();
-			 for (it; it != _courseListVector->end(); it++)
-			 {
-				 ListViewItem^ _course = gcnew ListViewItem((**it).courseId().ToString());
-				 _course->SubItems->Add((**it).name());
-				 _course->SubItems->Add((**it).chiefId());
-				 _course->SubItems->Add((**it).startDate());
-				 _course->SubItems->Add((**it).endDate());
-				 //course->SubItems->Add((**it).endDate());
-
-				 lstCourseList->Items->Add(_course);
-			 }
-		 }
+				// Iterera igenom hela schemat och skriv ut den
+				vector<CourseList^>::iterator it = _courseListVector->begin();
+				for (it; it != _courseListVector->end(); it++)
+				{
+					ListViewItem^ _course = gcnew ListViewItem((**it).courseId().ToString());
+					_course->SubItems->Add((**it).name());
+					_course->SubItems->Add((**it).chiefId());
+					_course->SubItems->Add((**it).startDate());
+					_course->SubItems->Add((**it).endDate());
+					//course->SubItems->Add((**it).endDate());
+					lstCourseList->Items->Add(_course);
+				}
+			}
 };
 }

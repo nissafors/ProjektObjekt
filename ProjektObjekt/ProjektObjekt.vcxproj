@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="BookingForm.cpp" />
     <ClCompile Include="CourseList.cpp" />
     <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="EditScheduleForm.cpp" />
@@ -106,6 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Anställd.h" />
+    <ClInclude Include="BookingForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="CourseList.h" />
     <ClInclude Include="dbHandler.h" />
     <ClInclude Include="EditScheduleForm.h">
@@ -144,6 +148,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BookingForm.resx">
+      <DependentUpon>BookingForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditScheduleForm.resx">
       <DependentUpon>EditScheduleForm.h</DependentUpon>
     </EmbeddedResource>
