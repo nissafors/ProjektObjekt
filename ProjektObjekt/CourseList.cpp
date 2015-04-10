@@ -10,7 +10,7 @@ String^ CourseList::name() { return _name; }
 
 String^ CourseList::courseId() { return _courseId.ToString(); }
 
-String^ CourseList::chiefId() { return _courseId.ToString(); }
+String^ CourseList::chiefId() { return _chiefId.ToString(); }
 
 String^ CourseList::chiefExtra() { return _chiefExtra.ToString(); }
 
