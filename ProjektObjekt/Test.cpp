@@ -83,7 +83,65 @@ Page^ Test::getPreviousPage(int &pageIndex)
 		return nullptr;
 }
 
+void Test::saveAnswers(Int64 socSecNo)
+{
+	// Get db command
+	dbHandler dbh;
+	DbCommand^ cmd = dbh.getCommand();
+
+
+	// Loop through pages in test and
+	String^ answer;
+	Page^ pageToSave;
+	for (int i = 0; i < _numberOfPages; i++)
+	{
+		pageToSave = _pages->at(i);
+
+		// Get page's answer into a string (if any)
+		if (pageToSave->getPageType() == page_t::multipleChoice)
+		{
+			MultipleChoicePage^ mcPageToSave = dynamic_cast<MultipleChoicePage^>(pageToSave);
+			vector<int>^ mcAnswers = mcPageToSave->getAnswer();
+			answer = String::Join(", ", mcAnswers);
+		}
+		else if (pageToSave->getPageType() == page_t::write)
+		{
+			WritePage^ wPageToSave = dynamic_cast<WritePage^>(pageToSave);
+			answer = wPageToSave->getAnswer();
+		}
+		else
+		{
+			answer = "";
+		}
+
+		// Write string to db
+		if (pageToSave->getPageType() == page_t::multipleChoice || pageToSave->getPageType() == page_t::write)
+		{
+			cmd->CommandText = "INSERT INTO TentaSvar (personNr, exKod, sidNr, svarsText) SELECT @socSecNo, @exCode, @pageNo, @answer";
+			cmd->Parameters->Add(gcnew SqlParameter("@socSecNo", SqlDbType::BigInt));
+			cmd->Parameters["@socSecNo"]->Value = socSecNo;
+			cmd->Parameters->Add(gcnew SqlParameter("@exCode", SqlDbType::Int));
+			cmd->Parameters["@exCode"]->Value = _examinationCode;
+			cmd->Parameters->Add(gcnew SqlParameter("@pageNo", SqlDbType::Int));
+			cmd->Parameters["@pageNo"]->Value = pageToSave->getPageNumber();
+			cmd->Parameters->Add(gcnew SqlParameter("@answer", SqlDbType::Text));
+			cmd->Parameters["@answer"]->Value = answer;
+			cmd->ExecuteNonQuery();
+
+			// Clear cmd for reuse
+			cmd->Parameters->Clear();
+		}
+	}
+
+	// TODO: Unlink student from this test
+}
+
 int Test::getNumberOfPages()
 {
 	return _numberOfPages;
+}
+
+int Test::getExaminationCode()
+{
+	return _examinationCode;
 }

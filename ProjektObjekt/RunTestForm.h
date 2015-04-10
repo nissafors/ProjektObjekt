@@ -202,11 +202,9 @@ namespace ProjektObjekt {
 			}
 			else
 			{
-				// Submit button was clicked. Save answers to db.
-				// db = TentaSvar
-				//dbHandler dbh;
-				//DbCommand^ cmd = dbh.getCommand();
-
+				// Submit button was clicked. Save answers to db and close this form.
+				_test->saveAnswers(_student->getSocSecNr());
+				this->Close();
 			}
 		}
 
@@ -268,8 +266,9 @@ namespace ProjektObjekt {
 					CheckState state = CheckState::Unchecked;
 					// Is this answer checked?
 					for each (int a in answer)
-						if (a == index++)
+						if (a == index)
 							state = CheckState::Checked;
+					index++;
 					answersCheckedListBox->Items->Add(o, state);
 				}
 			}

@@ -12,7 +12,9 @@ public:
 	Page^ getFirstPage();
 	Page^ getNextPage(int &pageIndex);
 	Page^ getPreviousPage(int &pageIndex);
+	void saveAnswers(Int64 socSecNo);
 	int getNumberOfPages();
+	int getExaminationCode();
 private:
 	int _examinationCode = 0;
 	int _currentPageIndex = 0;
