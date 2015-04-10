@@ -64,14 +64,8 @@ namespace ProjektObjekt {
 		// Winforms members
 	private: System::Windows::Forms::Button^  runTestButton;
 	private: System::Windows::Forms::Button^  closeButton;
-	protected:
-
-
 	private: System::Windows::Forms::ComboBox^  selectTestComboBox;
 	private: System::Windows::Forms::Label^  selectTestLabel;
-	protected:
-
-
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -156,6 +150,7 @@ namespace ProjektObjekt {
 		{
 			RunTestForm^ rtf = gcnew RunTestForm(_exCode->at(selectTestComboBox->SelectedIndex), _student);
 			rtf->ShowDialog(this);
+			delete rtf;
 		}
 	};
 }

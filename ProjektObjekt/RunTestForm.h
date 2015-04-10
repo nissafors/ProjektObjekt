@@ -1,5 +1,9 @@
 #pragma once
 #include "Student.h"
+#include "Test.h"
+#include "InfoPage.h"
+#include "WritePage.h"
+#include "MultipleChoicePage.h"
 
 namespace ProjektObjekt {
 
@@ -20,9 +24,9 @@ namespace ProjektObjekt {
 			: _examinationCode(examinationCode), _student(student)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			_test = gcnew Test(_examinationCode);
+			_currentPage = _test->getFirstPage();
+			_refreshPage(true, false);
 		}
 
 	protected:
@@ -41,6 +45,8 @@ namespace ProjektObjekt {
 	private:
 		int _examinationCode;
 		Student^ _student;
+		Test^ _test;
+		Page^ _currentPage;
 
 		// Winforms members
 	private: System::Windows::Forms::Label^  pageNumberLabel;
@@ -154,16 +160,138 @@ namespace ProjektObjekt {
 		}
 #pragma endregion
 
-		// Event handlers
 	private:
+		// Event handlers
+
 		System::Void previousButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			// Load previous page.
+			// Save answers on current page
+			savePageState();
+
+			// Load previous page
+			int pageIndex;
+			bool isFirstPage = false;
+			bool isLastPage = false;
+			_currentPage = _test->getPreviousPage(pageIndex);
+			if (pageIndex == 0)
+				isFirstPage = true;
+			if (_test->getNumberOfPages() < 2)
+				isLastPage = true;
+			_refreshPage(isFirstPage, isLastPage);
 		}
 
 		System::Void nextButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
+			// Save answers on current page
+			savePageState();
+
 			// Load next page or submit test (if last page).
+			String^ buttonText = nextButton->Text;
+			if (buttonText->StartsWith("Next"))
+			{
+				// Next button was clicked. View next page.
+				int pageIndex;
+				bool isFirstPage = false;
+				bool isLastPage = false;
+				_currentPage = _test->getNextPage(pageIndex);
+				if (pageIndex == 0)
+					isFirstPage = true;
+				if (pageIndex + 1 == _test->getNumberOfPages())
+					isLastPage = true;
+				_refreshPage(isFirstPage, isLastPage);
+			}
+			else
+			{
+				// Submit button was clicked. Save answers to db and close this form.
+				_test->saveAnswers(_student->getSocSecNr());
+				this->Close();
+			}
+		}
+
+		// Private functions
+
+		// Display _currentPage
+		void _refreshPage(bool isFirstPage, bool isLastPage)
+		{
+			// Adjust button fnctions to _currentPage demands
+			if (isFirstPage)
+				previousButton->Enabled = false;
+			else
+				previousButton->Enabled = true;
+			if (isLastPage)
+				nextButton->Text = "Submit";
+			else
+				nextButton->Text = "Next";
+
+			// Update form
+			String^ labelText = "Page: " + this->_currentPage->getPageNumber();
+			pageNumberLabel->Text = labelText;
+			textLabel->Text = _currentPage->getText();
+			
+			if (_currentPage->getPageType() == page_t::info)
+			{
+				// Hide answer boxes
+				answersCheckedListBox->Visible = false;
+				answerRichTextBox->Visible = false;
+			}
+			else if (_currentPage->getPageType() == page_t::write)
+			{
+				// Set visability and size of answer textBox
+				answersCheckedListBox->Visible = false;
+				answerRichTextBox->Visible = true;
+				answerRichTextBox->Location = Point(12, 109);
+				answerRichTextBox->Size = System::Drawing::Size(614, 235);
+				answerRichTextBox->Text = "";
+
+				// Show previously given answer, if any
+				WritePage^ thisPage = dynamic_cast<WritePage^>(_currentPage);
+				answerRichTextBox->Text = thisPage->getAnswer();
+			}
+			else if (_currentPage->getPageType() == page_t::multipleChoice)
+			{
+				// Set visability and size of answer checkedListBox
+				answerRichTextBox->Visible = false;
+				answersCheckedListBox->Visible = true;
+				answersCheckedListBox->Location = Point(12, 109);
+				answersCheckedListBox->Size = System::Drawing::Size(614, 235);
+				answersCheckedListBox->Items->Clear();
+
+				// Show options
+				MultipleChoicePage^ thisPage = dynamic_cast<MultipleChoicePage^>(_currentPage);
+				vector<String^>^ options = thisPage->getOptions();
+				vector<int>^ answer = thisPage->getAnswer();
+				int index = 0;
+				for each (String^ o in options)
+				{
+					CheckState state = CheckState::Unchecked;
+					// Is this answer checked?
+					for each (int a in answer)
+						if (a == index)
+							state = CheckState::Checked;
+					index++;
+					answersCheckedListBox->Items->Add(o, state);
+				}
+			}
+		}
+
+		// Save answer on current page to Page->_answer
+		void savePageState()
+		{
+			if (_currentPage->getPageType() == page_t::multipleChoice)
+			{
+				MultipleChoicePage^ thisPage = dynamic_cast<MultipleChoicePage^>(_currentPage);
+				vector<int>^ answer = gcnew vector<int>();
+				for each (int checkedIndex in answersCheckedListBox->CheckedIndices)
+				{
+					answer->push_back(checkedIndex);
+				}
+				thisPage->setAnswer(answer);
+			}
+			else if (_currentPage->getPageType() == page_t::write)
+			{
+				WritePage^ thisPage = dynamic_cast<WritePage^>(_currentPage);
+				thisPage->setAnswer(answerRichTextBox->Text);
+			}
 		}
 	};
 }

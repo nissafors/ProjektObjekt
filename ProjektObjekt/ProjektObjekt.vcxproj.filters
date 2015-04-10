@@ -57,6 +57,16 @@
     <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WritePage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MultipleChoicePage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoPage.cpp">
     <ClCompile Include="CourseList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -110,7 +120,20 @@
     <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Page.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WritePage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleChoicePage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoPage.h">
+=======
     <ClInclude Include="CourseList.h">
+>>>>>>> f4d9011f44e09119285697d8fe3b15c3bf21b707
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BookingForm.h">
