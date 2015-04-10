@@ -18,7 +18,7 @@ User^ User::getUser(String^ username, String^ password)
 	dbHandler dbh;
 	String^ dbPassword;
 	DbCommand^ command = dbh.getCommand();
-	command->CommandText = "SELECT pass FROM [dbo].[Användare] WHERE username=@user";
+	command->CommandText = "SELECT pass FROM Användare WHERE username=@user";
 	command->Parameters->Add(gcnew SqlParameter("@user", SqlDbType::Char));
 	command->Parameters["@user"]->Value = username;
 	DbDataReader^ reader = command->ExecuteReader();

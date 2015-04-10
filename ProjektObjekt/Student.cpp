@@ -5,21 +5,14 @@ Student::Student(String^ username)
 {
 	_username = username;
 	_userType = _user_t::student;
-	_points = 0;
 	_socSecNr = 0;
 	readFromDB();
-}
-
-int Student::getPoints()
-{
-	return _points;
 }
 
 Int64 Student::getSocSecNr()
 {
 	return _socSecNr;
 }
-
 
 void Student::readFromDB()
 {

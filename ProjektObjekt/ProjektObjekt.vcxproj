@@ -91,8 +91,11 @@
     <ClCompile Include="CourseList.cpp" />
     <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="EditScheduleForm.cpp" />
+    <ClCompile Include="InfoPage.cpp" />
     <ClCompile Include="LoginForm.cpp" />
+    <ClCompile Include="MultipleChoicePage.cpp" />
     <ClCompile Include="OriginalForm.cpp" />
+    <ClCompile Include="Page.cpp" />
     <ClCompile Include="RunTestForm.cpp" />
     <ClCompile Include="ShowTestsForm.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -104,6 +107,7 @@
     <ClCompile Include="Teacher.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="WritePage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Anställd.h" />
@@ -118,13 +122,16 @@
     <ClInclude Include="Form.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="InfoPage.h" />
     <ClInclude Include="Jobb.h" />
     <ClInclude Include="LoginForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MultipleChoicePage.h" />
     <ClInclude Include="OriginalForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Page.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RunTestForm.h">
       <FileType>CppForm</FileType>
@@ -137,6 +144,7 @@
     <ClInclude Include="Teacher.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="WritePage.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
