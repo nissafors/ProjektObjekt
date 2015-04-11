@@ -237,16 +237,31 @@ namespace ProjektObjekt {
 				_courseListVector = CourseList::getAllCourses(cmd);
 				lstCourseList->Items->Clear();
 
+				// Prepare command to get teachers name
+				cmd->CommandText = "SELECT namn FROM Personal WHERE anstNr = @teacher";
+				cmd->Parameters->Clear();
+				cmd->Parameters->Add(gcnew SqlParameter("@teacher", SqlDbType::Int));
+				DbDataReader^ reader;
+
 				// Iterera igenom hela schemat och skriv ut den
 				vector<CourseList^>::iterator it = _courseListVector->begin();
 				for (it; it != _courseListVector->end(); it++)
 				{
+					// Get teachers name
+					String^ a = (**it).chiefId();
+					int b = int::Parse((**it).chiefId());
+					cmd->Parameters["@teacher"]->Value = int::Parse((**it).chiefId());
+					reader = cmd->ExecuteReader();
+					reader->Read();
+					String^ teacher = reader->GetString(0);
+					reader->Close();
+					
+					// Add course data to ListView
 					ListViewItem^ _course = gcnew ListViewItem((**it).courseId().ToString());
 					_course->SubItems->Add((**it).name());
-					_course->SubItems->Add((**it).chiefId());
+					_course->SubItems->Add(teacher);
 					_course->SubItems->Add((**it).startDate());
 					_course->SubItems->Add((**it).endDate());
-					//course->SubItems->Add((**it).endDate());
 					lstCourseList->Items->Add(_course);
 				}
 			}
