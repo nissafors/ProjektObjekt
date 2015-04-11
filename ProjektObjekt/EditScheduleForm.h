@@ -205,27 +205,7 @@ namespace ProjektObjekt {
 				//setCourseIdSelected(courseIdSelected);
 				BookingForm^ bf = gcnew BookingForm(courseIdSelected);
 				bf->ShowDialog(this);
-				//ListViewItem^ courseSelected = gcnew ListViewItem();
-				//courseSelected = lstCourseList->;
-				//courseSelected->SubItems->Add(lstCourseList->SelectedItems->ToString());
-				//int i;
-				//courseSelected->GetSubItemAt([0]);
 				
-				
-				//String^ _courseid;
-				//_courseid = lstCourseList->SelectedItems->ToString();
-				//courseSelected = lstCourseList->SelectedItems->ToString();
-				//ListView::SelectedListViewItemCollection^ breakfast = this->lstCourseList->SelectedItems;
-				
-				
-				//i = Int32Converter::Parse(this->lstCourseList->Items[selec]->SubItems[1]->Text);
-				//i = int::Parse(lstCourseList->SelectedItems->CopyTo ToString());
-				//int i = Convert::ToInt32(lstCourseList->SelectedItems[0]->ToString());
-				
-				//i = stoi(_courseid);
-
-				//	MessageBox::Show(courseSelected);
-				//ListViewItem^ courseSelected =  gcnew ListViewItem();
 			}
 			else
 			{
