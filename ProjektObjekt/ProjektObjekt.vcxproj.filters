@@ -1,173 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="CourseList.cpp" />
+    <ClCompile Include="dbHandler.cpp" />
+    <ClCompile Include="EditScheduleForm.cpp" />
+    <ClCompile Include="InfoPage.cpp" />
+    <ClCompile Include="LoginForm.cpp" />
+    <ClCompile Include="MultipleChoicePage.cpp" />
+    <ClCompile Include="OriginalForm.cpp" />
+    <ClCompile Include="Page.cpp" />
+    <ClCompile Include="RunTestForm.cpp" />
+    <ClCompile Include="ShowTestsForm.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Form.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="Teacher.cpp" />
+    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="WritePage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClInclude Include="Anställd.h" />
+    <ClInclude Include="BookingForm.h" />
+    <ClInclude Include="CourseList.h" />
+    <ClInclude Include="dbHandler.h" />
+    <ClInclude Include="EditScheduleForm.h" />
+    <ClInclude Include="Form.h" />
+    <ClInclude Include="InfoPage.h" />
+    <ClInclude Include="Jobb.h" />
+    <ClInclude Include="LoginForm.h" />
+    <ClInclude Include="MultipleChoicePage.h" />
+    <ClInclude Include="OriginalForm.h" />
+    <ClInclude Include="Page.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RunTestForm.h" />
+    <ClInclude Include="ShowTestsForm.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="Teacher.h" />
+    <ClInclude Include="Test.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="WritePage.h" />
+    <ClInclude Include="Reservation.h" />
+    <ClInclude Include="Room.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssemblyInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Form.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OriginalForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LoginForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Student.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Teacher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShowTestsForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EditScheduleForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RunTestForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Page.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WritePage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MultipleChoicePage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InfoPage.cpp">
-    <ClCompile Include="CourseList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BookingForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Form.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Jobb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Anställd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OriginalForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Student.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Teacher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dbHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShowTestsForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditScheduleForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RunTestForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Page.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WritePage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MultipleChoicePage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InfoPage.h">
-=======
-    <ClInclude Include="CourseList.h">
->>>>>>> f4d9011f44e09119285697d8fe3b15c3bf21b707
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BookingForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="app.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="app.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Form.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ShowTestsForm.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RunTestForm.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditScheduleForm.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
+    <EmbeddedResource Include="BookingForm.resx" />
+    <EmbeddedResource Include="EditScheduleForm.resx" />
+    <EmbeddedResource Include="Form.resx" />
+    <EmbeddedResource Include="LoginForm.resx" />
+    <EmbeddedResource Include="RunTestForm.resx" />
+    <EmbeddedResource Include="ShowTestsForm.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>
