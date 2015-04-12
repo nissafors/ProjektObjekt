@@ -52,9 +52,6 @@ namespace ProjektObjekt {
 
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		int _nmbrOfStud;
 		int _coursIdSelected;
 		String^ _coursName;
@@ -99,9 +96,10 @@ namespace ProjektObjekt {
 	private: System::Windows::Forms::Button^  btnAvbryt;
 	private: System::Windows::Forms::Label^  lblAvailableRooms;
 	private: System::Windows::Forms::Panel^  panel2;
-
-
-
+	private:
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
