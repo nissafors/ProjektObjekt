@@ -22,7 +22,8 @@ public:
 		{
 			teacher = gcnew Teacher();
 			teacher->_name = reader->GetString(0);
-			teacher->_salary = reader->GetInt32(1);
+			if (!reader->IsDBNull(1))
+				teacher->_salary = reader->GetInt32(1);
 			teacher->_employeeNumber = reader->GetInt32(2);
 			allTeachers->push_back(teacher);
 			delete teacher;
