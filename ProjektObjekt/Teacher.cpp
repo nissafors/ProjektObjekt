@@ -40,6 +40,6 @@ void Teacher::readFromDB()
 	reader->Read();
 	_name = reader->GetString(0);
 	if (!reader->IsDBNull(1))
-		_salary = reader->GetInt16(1);
+		_salary = reader->GetInt32(1);
 	reader->Close();
 }
