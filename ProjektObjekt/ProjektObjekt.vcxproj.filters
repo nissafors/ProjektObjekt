@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CourseList.cpp" />
     <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="InfoPage.cpp" />
     <ClCompile Include="LoginForm.cpp" />
@@ -15,12 +14,11 @@
     <ClCompile Include="User.cpp" />
     <ClCompile Include="WritePage.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="Course.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BookingForm.h" />
-    <ClInclude Include="CourseList.h" />
     <ClInclude Include="dbHandler.h" />
-    <ClInclude Include="EditScheduleForm.h" />
     <ClInclude Include="InfoPage.h" />
     <ClInclude Include="LoginForm.h" />
     <ClInclude Include="MultipleChoicePage.h" />
@@ -37,6 +35,8 @@
     <ClInclude Include="Reservation.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="MainForm.h" />
+    <ClInclude Include="SelectCourseForm.h" />
+    <ClInclude Include="Course.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -46,11 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BookingForm.resx" />
-    <EmbeddedResource Include="EditScheduleForm.resx" />
     <EmbeddedResource Include="LoginForm.resx" />
     <EmbeddedResource Include="RunTestForm.resx" />
     <EmbeddedResource Include="ShowTestsForm.resx" />
     <EmbeddedResource Include="MainForm.resx" />
+    <EmbeddedResource Include="SelectCourseForm.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

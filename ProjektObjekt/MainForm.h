@@ -5,7 +5,7 @@
 #pragma once
 
 #include "LoginForm.h"
-#include "EditScheduleForm.h"
+#include "SelectCourseForm.h"
 #include "ShowTestsForm.h"
 #include "User.h"
 
@@ -183,7 +183,7 @@ namespace ProjektObjekt {
 			else if (_currentUser != nullptr && _currentUser->getUserType() == _user_t::teacher)
 			{
 				// User is a teacher: Call edit schedule form
-				EditScheduleForm^ esf = gcnew EditScheduleForm;
+				SelectCourseForm^ esf = gcnew SelectCourseForm;
 				esf->ShowDialog(this);
 			}
 		}

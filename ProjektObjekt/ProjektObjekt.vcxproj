@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CourseList.cpp" />
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="InfoPage.cpp" />
     <ClCompile Include="LoginForm.cpp" />
@@ -108,9 +108,9 @@
     <ClInclude Include="BookingForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="CourseList.h" />
+    <ClInclude Include="Course.h" />
     <ClInclude Include="dbHandler.h" />
-    <ClInclude Include="EditScheduleForm.h">
+    <ClInclude Include="SelectCourseForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainForm.h">
@@ -151,8 +151,8 @@
     <EmbeddedResource Include="BookingForm.resx">
       <DependentUpon>BookingForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditScheduleForm.resx">
-      <DependentUpon>EditScheduleForm.h</DependentUpon>
+    <EmbeddedResource Include="SelectCourseForm.resx">
+      <DependentUpon>SelectCourseForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
