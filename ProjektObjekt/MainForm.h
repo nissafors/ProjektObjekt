@@ -17,11 +17,11 @@ namespace ProjektObjekt {
 	/// This is the main form. From here a user may log in to the system. If the user is an
 	/// administrator (s)he may edit the schedule. Student users can access their tests.
 	/// </summary>
-	public ref class Form2 : public System::Windows::Forms::Form
+	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
 		// Default constructor
-		Form2(void)
+		MainForm(void)
 		{
 			InitializeComponent();
 			_currentUser = nullptr;
@@ -29,7 +29,7 @@ namespace ProjektObjekt {
 
 	protected:
 		// Destructor
-		~Form2()
+		~MainForm()
 		{
 			if (components)
 			{
@@ -82,7 +82,7 @@ namespace ProjektObjekt {
 			this->logInOutButton->TabIndex = 1;
 			this->logInOutButton->Text = L"Log in";
 			this->logInOutButton->UseVisualStyleBackColor = true;
-			this->logInOutButton->Click += gcnew System::EventHandler(this, &Form2::logInOutButton_Click);
+			this->logInOutButton->Click += gcnew System::EventHandler(this, &MainForm::logInOutButton_Click);
 			// 
 			// doStuffButton
 			// 
@@ -93,7 +93,7 @@ namespace ProjektObjekt {
 			this->doStuffButton->TabIndex = 2;
 			this->doStuffButton->Text = L"Unavailable";
 			this->doStuffButton->UseVisualStyleBackColor = true;
-			this->doStuffButton->Click += gcnew System::EventHandler(this, &Form2::doStuffButton_Click);
+			this->doStuffButton->Click += gcnew System::EventHandler(this, &MainForm::doStuffButton_Click);
 			// 
 			// exitButton
 			// 
@@ -103,9 +103,9 @@ namespace ProjektObjekt {
 			this->exitButton->TabIndex = 3;
 			this->exitButton->Text = L"Exit";
 			this->exitButton->UseVisualStyleBackColor = true;
-			this->exitButton->Click += gcnew System::EventHandler(this, &Form2::exitButton_Click);
+			this->exitButton->Click += gcnew System::EventHandler(this, &MainForm::exitButton_Click);
 			// 
-			// Form2
+			// Form
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -115,7 +115,7 @@ namespace ProjektObjekt {
 			this->Controls->Add(this->logInOutButton);
 			this->Controls->Add(this->currentUserLabel);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
-			this->Name = L"Form2";
+			this->Name = L"MainForm";
 			this->Text = L"Fake University";
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -196,5 +196,5 @@ namespace ProjektObjekt {
 			doStuffButton->Text = "Unavailable";
 			logInOutButton->Text = "Log in";
 		}
-	}; // End of class Form2
+	}; // End of class MainForm
 } // namespace endbracket

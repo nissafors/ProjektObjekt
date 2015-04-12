@@ -148,7 +148,7 @@ namespace ProjektObjekt {
 			// 
 			this->btnBook->DialogResult = System::Windows::Forms::DialogResult::OK;
 			this->btnBook->Location = System::Drawing::Point(1150, 320);
-			this->btnBook->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->_->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->btnBook->Name = L"btnBook";
 			this->btnBook->Size = System::Drawing::Size(112, 35);
 			this->btnBook->TabIndex = 2;

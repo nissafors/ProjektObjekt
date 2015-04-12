@@ -102,7 +102,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Form.cpp" />
+    <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Teacher.cpp" />
     <ClCompile Include="Test.cpp" />
@@ -119,7 +119,7 @@
     <ClInclude Include="EditScheduleForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Form.h">
+    <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="InfoPage.h" />
@@ -162,8 +162,8 @@
     <EmbeddedResource Include="EditScheduleForm.resx">
       <DependentUpon>EditScheduleForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form.resx">
-      <DependentUpon>Form.h</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>

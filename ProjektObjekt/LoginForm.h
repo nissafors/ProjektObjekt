@@ -45,19 +45,10 @@ namespace ProjektObjekt {
 
 	private: System::Windows::Forms::Label^  usernameLabel;
 	private: System::Windows::Forms::TextBox^  usernameTextBox;
-
-	protected:
-
 	private: System::Windows::Forms::Label^  passwordLabel;
 	private: System::Windows::Forms::TextBox^  passwordTextBox;
-
 	private: System::Windows::Forms::Button^  cancelButton;
 	private: System::Windows::Forms::Button^  logInButton;
-
-	protected:
-
-	protected:
-
 	private:
 		/// <summary>
 		/// Required designer variable.
