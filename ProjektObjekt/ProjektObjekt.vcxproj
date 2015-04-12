@@ -89,14 +89,10 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CourseList.cpp" />
     <ClCompile Include="dbHandler.cpp" />
-    <ClCompile Include="EditScheduleForm.cpp" />
     <ClCompile Include="InfoPage.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MultipleChoicePage.cpp" />
-    <ClCompile Include="OriginalForm.cpp" />
     <ClCompile Include="Page.cpp" />
-    <ClCompile Include="RunTestForm.cpp" />
-    <ClCompile Include="ShowTestsForm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -109,7 +105,6 @@
     <ClCompile Include="WritePage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Anställd.h" />
     <ClInclude Include="BookingForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -122,14 +117,10 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="InfoPage.h" />
-    <ClInclude Include="Jobb.h" />
     <ClInclude Include="LoginForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MultipleChoicePage.h" />
-    <ClInclude Include="OriginalForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="Page.h" />
     <ClInclude Include="Reservation.h" />
     <ClInclude Include="resource.h" />
