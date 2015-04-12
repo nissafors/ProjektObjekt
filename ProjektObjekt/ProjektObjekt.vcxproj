@@ -87,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="BookingForm.cpp" />
     <ClCompile Include="CourseList.cpp" />
     <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="EditScheduleForm.cpp" />
@@ -132,7 +131,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Page.h" />
+    <ClInclude Include="Reservation.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="RunTestForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

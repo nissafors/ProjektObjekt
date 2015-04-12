@@ -1,6 +1,7 @@
 #pragma once
 #include "dbHandler.h"
 #include <cliext\vector>
+#include "Room.h"
 
 
 namespace ProjektObjekt {
@@ -59,7 +60,12 @@ namespace ProjektObjekt {
 		String^ _coursName;
 		String^ _strDateSelected;
 		String^ _couMmtSelected;
+		String^ _startTime;
+		String^ _endTime;
 		DateTime^ _dteDateSelected;
+		vector<Room^> ^_roomsVector;
+		vector<Room^> ^_roomsVectorToLbxAvailableRooms;
+		
 
 		
 	private: System::Windows::Forms::Button^  btnExit;
@@ -73,15 +79,26 @@ namespace ProjektObjekt {
 
 
 	private: System::Windows::Forms::Panel^  pnlCourseMmt;
-
 	private: System::Windows::Forms::Panel^  pnlCourse;
 	private: System::Windows::Forms::Button^  btnOkPnlCourseMmt;
-	private: System::Windows::Forms::Button^  btnOkPnlDate;
+	private: System::Windows::Forms::Button^  btnShowRoomsPnlDate;
+
 	private: System::Windows::Forms::ComboBox^  cbxSelCouMmt;
 	private: System::Windows::Forms::Label^  lblEndTime;
 	private: System::Windows::Forms::Label^  lblStartTime;
-	private: System::Windows::Forms::TextBox^  txtEndTime;
-	private: System::Windows::Forms::TextBox^  txtStartTime;
+	private: System::Windows::Forms::TextBox^  txtEndTimeHour;
+
+	private: System::Windows::Forms::TextBox^  txtStartTimeHour;
+	private: System::Windows::Forms::TextBox^  txtEndTimeMinutes;
+	private: System::Windows::Forms::TextBox^  txtStartTimeMinutes;
+	private: System::Windows::Forms::Label^  lbl1;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Panel^  panel1;
+	private: System::Windows::Forms::ListBox^  lbxAvailableRooms;
+
+	private: System::Windows::Forms::Button^  btnAvbryt;
+	private: System::Windows::Forms::Label^  lblAvailableRooms;
+	private: System::Windows::Forms::Panel^  panel2;
 
 
 
@@ -104,19 +121,30 @@ namespace ProjektObjekt {
 			this->lblValjDatum = (gcnew System::Windows::Forms::Label());
 			this->lblValtDatum = (gcnew System::Windows::Forms::Label());
 			this->pnlDate = (gcnew System::Windows::Forms::Panel());
-			this->txtEndTime = (gcnew System::Windows::Forms::TextBox());
-			this->txtStartTime = (gcnew System::Windows::Forms::TextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->lbl1 = (gcnew System::Windows::Forms::Label());
+			this->txtEndTimeMinutes = (gcnew System::Windows::Forms::TextBox());
+			this->txtStartTimeMinutes = (gcnew System::Windows::Forms::TextBox());
+			this->txtEndTimeHour = (gcnew System::Windows::Forms::TextBox());
+			this->txtStartTimeHour = (gcnew System::Windows::Forms::TextBox());
 			this->lblEndTime = (gcnew System::Windows::Forms::Label());
 			this->lblStartTime = (gcnew System::Windows::Forms::Label());
-			this->btnOkPnlDate = (gcnew System::Windows::Forms::Button());
+			this->btnShowRoomsPnlDate = (gcnew System::Windows::Forms::Button());
 			this->lblChoseCourseMmt = (gcnew System::Windows::Forms::Label());
 			this->pnlCourseMmt = (gcnew System::Windows::Forms::Panel());
 			this->cbxSelCouMmt = (gcnew System::Windows::Forms::ComboBox());
 			this->btnOkPnlCourseMmt = (gcnew System::Windows::Forms::Button());
 			this->pnlCourse = (gcnew System::Windows::Forms::Panel());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->lblAvailableRooms = (gcnew System::Windows::Forms::Label());
+			this->btnAvbryt = (gcnew System::Windows::Forms::Button());
+			this->lbxAvailableRooms = (gcnew System::Windows::Forms::ListBox());
+			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->pnlDate->SuspendLayout();
 			this->pnlCourseMmt->SuspendLayout();
 			this->pnlCourse->SuspendLayout();
+			this->panel1->SuspendLayout();
+			this->panel2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// txtCourseName
@@ -130,9 +158,9 @@ namespace ProjektObjekt {
 			// 
 			// txtNmbrOfStud
 			// 
-			this->txtNmbrOfStud->Location = System::Drawing::Point(7, 122);
+			this->txtNmbrOfStud->Location = System::Drawing::Point(342, 41);
 			this->txtNmbrOfStud->Name = L"txtNmbrOfStud";
-			this->txtNmbrOfStud->Size = System::Drawing::Size(100, 26);
+			this->txtNmbrOfStud->Size = System::Drawing::Size(169, 26);
 			this->txtNmbrOfStud->TabIndex = 1;
 			// 
 			// lblCourses
@@ -147,7 +175,7 @@ namespace ProjektObjekt {
 			// lblNmbrOfStud
 			// 
 			this->lblNmbrOfStud->AutoSize = true;
-			this->lblNmbrOfStud->Location = System::Drawing::Point(3, 90);
+			this->lblNmbrOfStud->Location = System::Drawing::Point(338, 9);
 			this->lblNmbrOfStud->Name = L"lblNmbrOfStud";
 			this->lblNmbrOfStud->Size = System::Drawing::Size(118, 20);
 			this->lblNmbrOfStud->TabIndex = 3;
@@ -157,22 +185,25 @@ namespace ProjektObjekt {
 			// 
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1289, 24);
+			this->menuStrip1->Size = System::Drawing::Size(1041, 24);
 			this->menuStrip1->TabIndex = 4;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
 			// btnBook
 			// 
-			this->btnBook->Location = System::Drawing::Point(1104, 585);
+			this->btnBook->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->btnBook->Enabled = false;
+			this->btnBook->Location = System::Drawing::Point(809, 588);
 			this->btnBook->Name = L"btnBook";
-			this->btnBook->Size = System::Drawing::Size(91, 38);
+			this->btnBook->Size = System::Drawing::Size(155, 36);
 			this->btnBook->TabIndex = 6;
 			this->btnBook->Text = L"Boka";
 			this->btnBook->UseVisualStyleBackColor = true;
 			// 
 			// cdrStartDate
 			// 
-			this->cdrStartDate->Location = System::Drawing::Point(14, 14);
+			this->cdrStartDate->Enabled = false;
+			this->cdrStartDate->Location = System::Drawing::Point(11, 23);
 			this->cdrStartDate->Name = L"cdrStartDate";
 			this->cdrStartDate->TabIndex = 7;
 			this->cdrStartDate->DateChanged += gcnew System::Windows::Forms::DateRangeEventHandler(this, &BookingForm::cdrStartDate_DateChanged);
@@ -199,63 +230,102 @@ namespace ProjektObjekt {
 			// pnlDate
 			// 
 			this->pnlDate->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->pnlDate->Controls->Add(this->txtEndTime);
-			this->pnlDate->Controls->Add(this->txtStartTime);
+			this->pnlDate->Controls->Add(this->label1);
+			this->pnlDate->Controls->Add(this->lbl1);
+			this->pnlDate->Controls->Add(this->txtEndTimeMinutes);
+			this->pnlDate->Controls->Add(this->txtStartTimeMinutes);
+			this->pnlDate->Controls->Add(this->txtEndTimeHour);
+			this->pnlDate->Controls->Add(this->txtStartTimeHour);
 			this->pnlDate->Controls->Add(this->lblEndTime);
 			this->pnlDate->Controls->Add(this->lblStartTime);
-			this->pnlDate->Controls->Add(this->btnOkPnlDate);
+			this->pnlDate->Controls->Add(this->btnShowRoomsPnlDate);
 			this->pnlDate->Controls->Add(this->cdrStartDate);
 			this->pnlDate->Controls->Add(this->lblValtDatum);
 			this->pnlDate->Controls->Add(this->lblValjDatum);
-			this->pnlDate->Location = System::Drawing::Point(43, 293);
+			this->pnlDate->Location = System::Drawing::Point(34, 228);
 			this->pnlDate->Name = L"pnlDate";
-			this->pnlDate->Size = System::Drawing::Size(557, 303);
+			this->pnlDate->Size = System::Drawing::Size(557, 343);
 			this->pnlDate->TabIndex = 10;
 			// 
-			// txtEndTime
+			// label1
 			// 
-			this->txtEndTime->Enabled = false;
-			this->txtEndTime->Location = System::Drawing::Point(355, 198);
-			this->txtEndTime->Name = L"txtEndTime";
-			this->txtEndTime->Size = System::Drawing::Size(100, 26);
-			this->txtEndTime->TabIndex = 20;
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(413, 235);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(13, 20);
+			this->label1->TabIndex = 24;
+			this->label1->Text = L":";
 			// 
-			// txtStartTime
+			// lbl1
 			// 
-			this->txtStartTime->Enabled = false;
-			this->txtStartTime->Location = System::Drawing::Point(355, 123);
-			this->txtStartTime->Name = L"txtStartTime";
-			this->txtStartTime->Size = System::Drawing::Size(100, 26);
-			this->txtStartTime->TabIndex = 19;
+			this->lbl1->AutoSize = true;
+			this->lbl1->Location = System::Drawing::Point(413, 134);
+			this->lbl1->Name = L"lbl1";
+			this->lbl1->Size = System::Drawing::Size(13, 20);
+			this->lbl1->TabIndex = 23;
+			this->lbl1->Text = L":";
+			this->lbl1->Click += gcnew System::EventHandler(this, &BookingForm::label1_Click);
+			// 
+			// txtEndTimeMinutes
+			// 
+			this->txtEndTimeMinutes->Enabled = false;
+			this->txtEndTimeMinutes->Location = System::Drawing::Point(436, 235);
+			this->txtEndTimeMinutes->Name = L"txtEndTimeMinutes";
+			this->txtEndTimeMinutes->Size = System::Drawing::Size(28, 26);
+			this->txtEndTimeMinutes->TabIndex = 22;
+			// 
+			// txtStartTimeMinutes
+			// 
+			this->txtStartTimeMinutes->Enabled = false;
+			this->txtStartTimeMinutes->Location = System::Drawing::Point(436, 131);
+			this->txtStartTimeMinutes->Name = L"txtStartTimeMinutes";
+			this->txtStartTimeMinutes->Size = System::Drawing::Size(28, 26);
+			this->txtStartTimeMinutes->TabIndex = 20;
+			// 
+			// txtEndTimeHour
+			// 
+			this->txtEndTimeHour->Enabled = false;
+			this->txtEndTimeHour->Location = System::Drawing::Point(374, 235);
+			this->txtEndTimeHour->Name = L"txtEndTimeHour";
+			this->txtEndTimeHour->Size = System::Drawing::Size(28, 26);
+			this->txtEndTimeHour->TabIndex = 21;
+			// 
+			// txtStartTimeHour
+			// 
+			this->txtStartTimeHour->Enabled = false;
+			this->txtStartTimeHour->Location = System::Drawing::Point(374, 131);
+			this->txtStartTimeHour->Name = L"txtStartTimeHour";
+			this->txtStartTimeHour->Size = System::Drawing::Size(28, 26);
+			this->txtStartTimeHour->TabIndex = 19;
 			// 
 			// lblEndTime
 			// 
 			this->lblEndTime->AutoSize = true;
-			this->lblEndTime->Location = System::Drawing::Point(351, 163);
+			this->lblEndTime->Location = System::Drawing::Point(351, 201);
 			this->lblEndTime->Name = L"lblEndTime";
-			this->lblEndTime->Size = System::Drawing::Size(84, 20);
+			this->lblEndTime->Size = System::Drawing::Size(160, 20);
 			this->lblEndTime->TabIndex = 18;
-			this->lblEndTime->Text = L"Välj Sluttid";
+			this->lblEndTime->Text = L"Välj Sluttid (Tim : Min)";
 			// 
 			// lblStartTime
 			// 
 			this->lblStartTime->AutoSize = true;
 			this->lblStartTime->Location = System::Drawing::Point(351, 99);
 			this->lblStartTime->Name = L"lblStartTime";
-			this->lblStartTime->Size = System::Drawing::Size(91, 20);
+			this->lblStartTime->Size = System::Drawing::Size(167, 20);
 			this->lblStartTime->TabIndex = 17;
-			this->lblStartTime->Text = L"Välj Starttid";
+			this->lblStartTime->Text = L"Välj Starttid (Tim : Min)";
 			// 
-			// btnOkPnlDate
+			// btnShowRoomsPnlDate
 			// 
-			this->btnOkPnlDate->Enabled = false;
-			this->btnOkPnlDate->Location = System::Drawing::Point(402, 251);
-			this->btnOkPnlDate->Name = L"btnOkPnlDate";
-			this->btnOkPnlDate->Size = System::Drawing::Size(90, 36);
-			this->btnOkPnlDate->TabIndex = 16;
-			this->btnOkPnlDate->Text = L"OK";
-			this->btnOkPnlDate->UseVisualStyleBackColor = true;
-			this->btnOkPnlDate->Click += gcnew System::EventHandler(this, &BookingForm::btnOkPnlDate_Click);
+			this->btnShowRoomsPnlDate->Enabled = false;
+			this->btnShowRoomsPnlDate->Location = System::Drawing::Point(342, 292);
+			this->btnShowRoomsPnlDate->Name = L"btnShowRoomsPnlDate";
+			this->btnShowRoomsPnlDate->Size = System::Drawing::Size(169, 36);
+			this->btnShowRoomsPnlDate->TabIndex = 16;
+			this->btnShowRoomsPnlDate->Text = L"Visa lediga salar";
+			this->btnShowRoomsPnlDate->UseVisualStyleBackColor = true;
+			this->btnShowRoomsPnlDate->Click += gcnew System::EventHandler(this, &BookingForm::btnShowRoomsPnlDate_Click);
 			// 
 			// lblChoseCourseMmt
 			// 
@@ -271,9 +341,9 @@ namespace ProjektObjekt {
 			this->pnlCourseMmt->Controls->Add(this->cbxSelCouMmt);
 			this->pnlCourseMmt->Controls->Add(this->btnOkPnlCourseMmt);
 			this->pnlCourseMmt->Controls->Add(this->lblChoseCourseMmt);
-			this->pnlCourseMmt->Location = System::Drawing::Point(3, 175);
+			this->pnlCourseMmt->Location = System::Drawing::Point(3, 87);
 			this->pnlCourseMmt->Name = L"pnlCourseMmt";
-			this->pnlCourseMmt->Size = System::Drawing::Size(537, 95);
+			this->pnlCourseMmt->Size = System::Drawing::Size(535, 111);
 			this->pnlCourseMmt->TabIndex = 15;
 			// 
 			// cbxSelCouMmt
@@ -281,14 +351,16 @@ namespace ProjektObjekt {
 			this->cbxSelCouMmt->FormattingEnabled = true;
 			this->cbxSelCouMmt->Location = System::Drawing::Point(8, 53);
 			this->cbxSelCouMmt->Name = L"cbxSelCouMmt";
-			this->cbxSelCouMmt->Size = System::Drawing::Size(121, 28);
+			this->cbxSelCouMmt->Size = System::Drawing::Size(249, 28);
 			this->cbxSelCouMmt->TabIndex = 16;
+			this->cbxSelCouMmt->SelectedIndexChanged += gcnew System::EventHandler(this, &BookingForm::cbxSelCouMmt_SelectedIndexChanged);
 			// 
 			// btnOkPnlCourseMmt
 			// 
-			this->btnOkPnlCourseMmt->Location = System::Drawing::Point(399, 48);
+			this->btnOkPnlCourseMmt->Enabled = false;
+			this->btnOkPnlCourseMmt->Location = System::Drawing::Point(339, 53);
 			this->btnOkPnlCourseMmt->Name = L"btnOkPnlCourseMmt";
-			this->btnOkPnlCourseMmt->Size = System::Drawing::Size(90, 33);
+			this->btnOkPnlCourseMmt->Size = System::Drawing::Size(169, 33);
 			this->btnOkPnlCourseMmt->TabIndex = 15;
 			this->btnOkPnlCourseMmt->Text = L"OK";
 			this->btnOkPnlCourseMmt->UseVisualStyleBackColor = true;
@@ -302,19 +374,70 @@ namespace ProjektObjekt {
 			this->pnlCourse->Controls->Add(this->txtCourseName);
 			this->pnlCourse->Controls->Add(this->txtNmbrOfStud);
 			this->pnlCourse->Controls->Add(this->lblNmbrOfStud);
-			this->pnlCourse->Location = System::Drawing::Point(43, 12);
+			this->pnlCourse->Location = System::Drawing::Point(34, 23);
 			this->pnlCourse->Name = L"pnlCourse";
-			this->pnlCourse->Size = System::Drawing::Size(557, 275);
+			this->pnlCourse->Size = System::Drawing::Size(557, 190);
 			this->pnlCourse->TabIndex = 16;
+			// 
+			// panel1
+			// 
+			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel1->Controls->Add(this->panel2);
+			this->panel1->Controls->Add(this->btnAvbryt);
+			this->panel1->Controls->Add(this->pnlCourse);
+			this->panel1->Controls->Add(this->btnBook);
+			this->panel1->Controls->Add(this->pnlDate);
+			this->panel1->Location = System::Drawing::Point(21, 27);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(993, 640);
+			this->panel1->TabIndex = 17;
+			// 
+			// lblAvailableRooms
+			// 
+			this->lblAvailableRooms->AutoSize = true;
+			this->lblAvailableRooms->Location = System::Drawing::Point(20, 10);
+			this->lblAvailableRooms->Name = L"lblAvailableRooms";
+			this->lblAvailableRooms->Size = System::Drawing::Size(107, 20);
+			this->lblAvailableRooms->TabIndex = 18;
+			this->lblAvailableRooms->Text = L"Lediga lokaler";
+			// 
+			// btnAvbryt
+			// 
+			this->btnAvbryt->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->btnAvbryt->Location = System::Drawing::Point(34, 588);
+			this->btnAvbryt->Name = L"btnAvbryt";
+			this->btnAvbryt->Size = System::Drawing::Size(155, 36);
+			this->btnAvbryt->TabIndex = 17;
+			this->btnAvbryt->Text = L"Avbryt";
+			this->btnAvbryt->UseVisualStyleBackColor = true;
+			this->btnAvbryt->Click += gcnew System::EventHandler(this, &BookingForm::btnAvbryt_Click);
+			// 
+			// lbxAvailableRooms
+			// 
+			this->lbxAvailableRooms->FormattingEnabled = true;
+			this->lbxAvailableRooms->ItemHeight = 20;
+			this->lbxAvailableRooms->Location = System::Drawing::Point(24, 42);
+			this->lbxAvailableRooms->Name = L"lbxAvailableRooms";
+			this->lbxAvailableRooms->Size = System::Drawing::Size(291, 444);
+			this->lbxAvailableRooms->TabIndex = 7;
+			this->lbxAvailableRooms->SelectedIndexChanged += gcnew System::EventHandler(this, &BookingForm::lbxAvailableRooms_SelectedIndexChanged);
+			// 
+			// panel2
+			// 
+			this->panel2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel2->Controls->Add(this->lblAvailableRooms);
+			this->panel2->Controls->Add(this->lbxAvailableRooms);
+			this->panel2->Location = System::Drawing::Point(618, 23);
+			this->panel2->Name = L"panel2";
+			this->panel2->Size = System::Drawing::Size(346, 548);
+			this->panel2->TabIndex = 18;
 			// 
 			// BookingForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1289, 635);
-			this->Controls->Add(this->pnlCourse);
-			this->Controls->Add(this->pnlDate);
-			this->Controls->Add(this->btnBook);
+			this->ClientSize = System::Drawing::Size(1041, 690);
+			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->menuStrip1);
 			this->Location = System::Drawing::Point(1086, 585);
 			this->MainMenuStrip = this->menuStrip1;
@@ -327,6 +450,9 @@ namespace ProjektObjekt {
 			this->pnlCourseMmt->PerformLayout();
 			this->pnlCourse->ResumeLayout(false);
 			this->pnlCourse->PerformLayout();
+			this->panel1->ResumeLayout(false);
+			this->panel2->ResumeLayout(false);
+			this->panel2->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -335,7 +461,7 @@ namespace ProjektObjekt {
 	private: System::Void txtCourseName_TextChanged(System::Object^  sender, System::EventArgs^  e)
 	{
 	}
-			 System::Void updateTxtNmbrOfStud(int id)
+			 Void updateTxtNmbrOfStud(int id)
 			 {
 				 dbHandler dbh;
 				 DbCommand^ cmd = dbh.getCommand();
@@ -349,7 +475,7 @@ namespace ProjektObjekt {
 				 txtNmbrOfStud->Text = _nmbrOfStud.ToString();
 				 reader->Close();
 			 }
-			 System::Void updateTxtCourseName(int id)
+			 void updateTxtCourseName(int id)
 			 {
 				dbHandler dbh;
 				DbCommand^ cmd = dbh.getCommand();
@@ -362,13 +488,106 @@ namespace ProjektObjekt {
 				txtCourseName->Text = _coursName;
 				reader->Close();
 			 }
-			 System::Void updateLbxCourseMmt()
+			 Void updateLbxCourseMmt()
 			 {
 				 cbxSelCouMmt->Items->Add("föreläsning");
 				 cbxSelCouMmt->Items->Add("övning");
 				 //cbxSelCouMmt->Items->Add("Dugga");
 				 cbxSelCouMmt->Items->Add("laboration");
 
+			 }
+			 bool controllTimes()
+			 {
+				 int sh, eh, sm, em; //start- och sluttimma, start- och slutminut
+				 try
+				 {
+					 sh = Convert::ToInt32(txtStartTimeHour->Text);
+					 sm = Convert::ToInt32(txtStartTimeMinutes->Text);
+					 eh = Convert::ToInt32(txtEndTimeHour->Text);
+					 em = Convert::ToInt32(txtEndTimeMinutes->Text);
+				 }
+				 catch (Exception^ e)
+				 {
+					 MessageBox::Show("Felaktig inmatning, måste ange heltal.");
+					 return false;
+				 }
+				 if ((sh >= 0 && sh < 25) && (sm >= 0 && sm < 61) && (eh >= 0 && eh < 25) && (em >= 0 && em < 61))
+				 {
+					 
+					 return true;
+
+				 }
+				 else
+				 { 
+					 MessageBox::Show("Felaktig inmatning\nTimmar: 0 - 24 \nMinuter: 0 - 60");
+					 return false; 
+				 }
+			 }
+			 bool controllSeats()
+			 {
+				 int tempSeats = 0;
+				 try{ tempSeats = Convert::ToInt32(txtNmbrOfStud->Text); }
+				 catch (Exception^ e)
+				 {
+					 MessageBox::Show("Felaktig inmatning, måste ange heltal.");
+					 return false;
+				 }
+				 if (tempSeats >= 0){ return true; }
+				 else
+				 {
+					 MessageBox::Show("Felaktig inmatning, måste ange heltal >= 0");
+					 return false;
+				 }
+			 }
+			 vector<Room^>^ getAvailableRoom()
+			 {
+				 // Lista med alla salar
+				 _roomsVector = Room::getAllRooms();
+				 // Lista med LokalId
+				 
+				 
+				 dbHandler dbh;
+				 DbCommand^ cmd = dbh.getCommand();
+				 cmd->CommandText = "SELECT UndervisningsMoment.salsNr FROM UndervisningsMoment WHERE UndervisningsMoment.datum = @date AND @startTime <= UndervisningsMoment.slutTid AND @endTime >= UndervisningsMoment.startTid";
+				
+				 // Hämtar startTiden och lägger in den som ett timevärde
+				 cmd->Parameters->Add(gcnew SqlParameter("@startTime", SqlDbType::Time));
+				 cmd->Parameters["@startTime"]->Value = _startTime;
+				 
+				 // Hämtar slutTiden och lägger in den som ett timevärde
+				 cmd->Parameters->Add(gcnew SqlParameter("@endTime", SqlDbType::Time));
+				 cmd->Parameters["@endTime"]->Value = _endTime;
+				 
+				 // Hämtar datum och lägger in den som ett datevärde
+				 cmd->Parameters->Add(gcnew SqlParameter("@date", SqlDbType::Date));
+				 cmd->Parameters["@date"]->Value = _strDateSelected;
+				 DbDataReader^ reader = cmd->ExecuteReader();
+				 
+				 //Lista med lokalId
+				 vector<int>^ _roomIdVector = gcnew vector<int>();
+				 while (reader->Read())
+					 _roomIdVector->push_back(reader->GetInt32(0));
+				 reader->Close();
+				 cmd->Parameters->Clear();
+				 vector<Room^> ^_availablerooms = gcnew vector<Room^>();
+				 // Loopa igenom LokalListan och lägg till de rum som är lediga
+				 for (int i = 0; i < _roomsVector->size(); i++)
+				 {
+					 Room^ _tmpRooms = _roomsVector->at(i);
+					 // kolla om matchning finns
+					 bool match = false;
+					 for (int i = 0; i < _roomIdVector->size(); i++)
+					 {
+						 if (_tmpRooms->getRoomNr() == _roomIdVector->at(i))
+						 {
+							 match = true;
+							 break;
+						 }
+					 }
+					 if (!match && _tmpRooms->getSeats() >= _nmbrOfStud)
+						 _availablerooms->push_back(_tmpRooms);
+				 }
+				 return _availablerooms;
 			 }
 	private: System::Void btnExit_Click(System::Object^  sender, System::EventArgs^  e) {
 				this->Close();
@@ -381,20 +600,60 @@ namespace ProjektObjekt {
 				_strDateSelected = _dteDateSelected->ToShortDateString();		//tar inte med 	klockslag	
 				lblValtDatum->Visible = true;
 				lblValtDatum->Text = _strDateSelected;
-				txtEndTime->Enabled = true;
-				txtStartTime->Enabled = true;
+				txtEndTimeMinutes->Enabled = true;
+				txtEndTimeHour->Enabled = true;
+				txtStartTimeHour->Enabled = true;
+				txtStartTimeMinutes->Enabled = true;
 	}
 private: System::Void btnOkPnlCourseMmt_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 			 String^ str;
-			 _couMmtSelected = cbxSelCouMmt->SelectedItem->ToString();
-			 str = txtNmbrOfStud->Text;
-			 _nmbrOfStud = Convert::ToInt32(str);
-			 btnOkPnlDate->Enabled = true;
-			 pnlDate->Enabled = true;
-			 MessageBox::Show(_couMmtSelected + str  );
+			 cdrStartDate->Enabled = true;
+			 if (controllSeats()) //kontroller inmatning i antal studenter
+			 {
+				 _couMmtSelected = cbxSelCouMmt->SelectedItem->ToString();
+				 str = txtNmbrOfStud->Text;
+				 _nmbrOfStud = Convert::ToInt32(str);
+				 btnShowRoomsPnlDate->Enabled = true;
+				 pnlDate->Enabled = true;
+				 //MessageBox::Show(_couMmtSelected + str  );
+			 }
 }
-private: System::Void btnOkPnlDate_Click(System::Object^  sender, System::EventArgs^  e) {
+
+private: System::Void btnShowRoomsPnlDate_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+
+			 if (controllTimes())
+			 {
+				 _startTime = ((txtStartTimeHour->Text) + ":" + (txtStartTimeMinutes->Text));
+				 _endTime = (txtEndTimeHour->Text) + ":" + (txtEndTimeMinutes->Text);
+				 //MessageBox::Show(_startTime + "\n" + _endTime);
+				 // Hämtar alla salar
+				 _roomsVectorToLbxAvailableRooms = getAvailableRoom();
+				 lbxAvailableRooms->Items->Clear(); // rensar salfönstret
+				 // Lägger in alla lediga salar
+				 for (int i = 0; i < _roomsVectorToLbxAvailableRooms->size(); i++)
+				 {
+					 Room^ _Room = _roomsVectorToLbxAvailableRooms->at(i);
+					 lbxAvailableRooms->Items->Add("Salsnummer: " + _Room->getRoomNr() + "   Platser: " + _Room->getSeats());
+				 }
+			 }
+}
+
+		 
+private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+
+}
+private: System::Void cbxSelCouMmt_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) 
+{
+			 btnOkPnlCourseMmt->Enabled = true;
+}
+private: System::Void btnAvbryt_Click(System::Object^  sender, System::EventArgs^  e) {
+			 this->Close();
+}
+private: System::Void lbxAvailableRooms_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			 btnBook->Enabled = true;
 }
 };
 

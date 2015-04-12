@@ -191,6 +191,7 @@ namespace ProjektObjekt {
 
 		}
 #pragma endregion
+
 		
 	public: System::Int32 getCourseIdSelected()
 	{

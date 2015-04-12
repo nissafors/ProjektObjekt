@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="BookingForm.cpp" />
     <ClCompile Include="CourseList.cpp" />
     <ClCompile Include="dbHandler.cpp" />
     <ClCompile Include="EditScheduleForm.cpp" />
@@ -14,12 +13,12 @@
     <ClCompile Include="RunTestForm.cpp" />
     <ClCompile Include="ShowTestsForm.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Form.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Teacher.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="WritePage.cpp" />
-    <ClCompile Include="MainForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Anställd.h" />
@@ -27,6 +26,7 @@
     <ClInclude Include="CourseList.h" />
     <ClInclude Include="dbHandler.h" />
     <ClInclude Include="EditScheduleForm.h" />
+    <ClInclude Include="Form.h" />
     <ClInclude Include="InfoPage.h" />
     <ClInclude Include="Jobb.h" />
     <ClInclude Include="LoginForm.h" />
@@ -42,7 +42,8 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="WritePage.h" />
-    <ClInclude Include="MainForm.h" />
+    <ClInclude Include="Reservation.h" />
+    <ClInclude Include="Room.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -53,10 +54,10 @@
   <ItemGroup>
     <EmbeddedResource Include="BookingForm.resx" />
     <EmbeddedResource Include="EditScheduleForm.resx" />
+    <EmbeddedResource Include="Form.resx" />
     <EmbeddedResource Include="LoginForm.resx" />
     <EmbeddedResource Include="RunTestForm.resx" />
     <EmbeddedResource Include="ShowTestsForm.resx" />
-    <EmbeddedResource Include="MainForm.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
