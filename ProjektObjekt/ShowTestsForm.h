@@ -148,9 +148,29 @@ namespace ProjektObjekt {
 	private:
 		System::Void runTestButton_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			RunTestForm^ rtf = gcnew RunTestForm(_exCode->at(selectTestComboBox->SelectedIndex), _student);
-			rtf->ShowDialog(this);
-			delete rtf;
+			// Has this test already been taken by this _student?
+			dbHandler dbh;
+			DbCommand^ cmd = dbh.getCommand();
+			cmd->CommandText = "SELECT COUNT(*) FROM TentaSvar WHERE exKod = @exCode AND personNr = @student";
+			cmd->Parameters->Add(gcnew SqlParameter("@exCode", SqlDbType::Int));
+			cmd->Parameters["@exCode"]->Value = _exCode->at(selectTestComboBox->SelectedIndex);
+			cmd->Parameters->Add(gcnew SqlParameter("@student", SqlDbType::BigInt));
+			cmd->Parameters["@student"]->Value = _student->getSocSecNr();
+			DbDataReader^ reader = cmd->ExecuteReader();
+			reader->Read();
+
+			if (reader->GetInt32(0) > 0)
+			{
+				// Yes. Show warning and don't run the test.
+				MessageBox::Show("This test has already been taken by you. Please contact your teacher for further instructions.", "Warning!", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			else
+			{
+				// Nope. Run the test.
+				RunTestForm^ rtf = gcnew RunTestForm(_exCode->at(selectTestComboBox->SelectedIndex), _student);
+				rtf->ShowDialog(this);
+				delete rtf;
+			}
 		}
 	};
 }
