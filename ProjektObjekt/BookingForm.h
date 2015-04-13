@@ -654,6 +654,7 @@ namespace ProjektObjekt {
 
 			 void updateCbxAllTeachers()
 			 {
+				 cbxSelectTeacher->Items->Clear();
 				 _allTeacherVector = Teacher::getAllTeachers();
 				 vector<Teacher^>::iterator it = _allTeacherVector->begin();
 				 for (it; it != _allTeacherVector->end(); it++)
